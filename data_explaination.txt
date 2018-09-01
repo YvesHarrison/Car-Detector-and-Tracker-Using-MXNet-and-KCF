@@ -1,0 +1,547 @@
+测试视频时长30s
+使用纯kcf处理时长170s左右
+使用kcf+rcnn多目标跟踪需207s左右
+==14660== Profiling application: /home/tracking/work/penv/mxnet-py2/bin/python /home/tracking/work/git/mxnet/example/rcnn/combination.py ./test_clip.avi
+==14660== Profiling result:
+Time(%)      Time     Calls       Avg       Min       Max  Name
+ 70.57%  7.55369s      1678  4.5016ms     608ns  132.17ms  [CUDA memcpy HtoD]
+ 17.05%  1.82533s       899  2.0304ms     768ns  56.525ms  [CUDA memcpy DtoH]
+  2.49%  266.26ms        78  3.4136ms  3.5840us  23.654ms  void transpose_readWrite_alignment_kernel<float2, float2, int=1, bool=0, int=6, int=4, int=4>(cublasTransposeParams<float2>, float2 const *, float2*, float2 const *)
+  1.19%  127.54ms        76  1.6781ms  21.377us  3.1923ms  maxwell_gcgemmBatched_32x32_raggedMn_nt
+  0.97%  104.24ms        22  4.7381ms  375.44us  12.503ms  void fermiPlusCgemmLDS128_batched<bool=1, bool=0, bool=0, bool=0, int=4, int=4, int=4, int=3, int=3, bool=1, bool=0>(float2**, float2**, float2**, float2*, float2 const *, float2 const *, int, int, int, int, int, int, __int64, __int64, __int64, float2 const *, float2 const *, float2, float2, int)
+  0.87%  93.315ms        60  1.5552ms  15.072us  11.441ms  void fft2d_r2c_64x64<float>(float2*, float const *, int, int, int, int, int, int, int, int)
+  0.87%  93.001ms        62  1.5000ms  261.52us  2.6960ms  void magma_lds128_sgemm_kernel<bool=1, bool=0, int=6, int=6, int=4, int=3, int=4>(int, int, int, float const *, int, float const *, int, float*, int, int, int, float const *, float const *, float, float, int)
+  0.83%  89.306ms         3  29.769ms  4.4457ms  53.076ms  void cudnn::detail::dgrad2d_alg1_1<float, int=0, int=6, int=7, int=5, int=4, int=5, bool=1, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::dgrad2d_alg1_1<float, int=0, int=6, int=7, int=5, int=4, int=5, bool=1, bool=1>*, kernel_grad_params, int, int, float, int, int)
+  0.52%  55.191ms       136  405.82us  224.27us  660.09us  maxwell_scudnn_winograd_128x128_ldg1_ldg4_tile148n_nt
+  0.46%  49.022ms        30  1.6341ms  19.457us  11.752ms  void fft2d_c2r_64x64<float, bool=0>(float*, float2*, int, int, int, int, int, int, int, int, int, int, float, float, int, float*, float*)
+  0.33%  35.593ms        39  912.64us  356.85us  1.6058ms  maxwell_scudnn_128x128_relu_small_nn
+  0.31%  33.682ms        31  1.0865ms  879.05us  1.1344ms  void mshadow::cuda::ROIPoolForwardKernel<float>(int, float const *, float, int, int, int, int, int, float const , mshadow::cuda::ROIPoolForwardKernel<float>*, float const *)
+  0.30%  31.819ms         4  7.9549ms  5.3084ms  10.532ms  cudnn_maxwell_cgemm_64x64_tn_batched
+  0.26%  28.349ms        31  914.49us  895.56us  954.12us  void mshadow::cuda::MapPlanLargeKernel<mshadow::sv::saveto, int=8, int=1024, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=1, float>, float>, mshadow::expr::Plan<mshadow::expr::ScalarExp<float>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=1, int)
+  0.24%  26.153ms        12  2.1795ms  1.1026ms  4.2815ms  maxwell_scudnn_128x128_stridedB_splitK_medium_nn
+  0.19%  20.387ms        26  784.10us  22.753us  2.2540ms  void cudnn::detail::dgrad_engine<float, int=128, int=6, int=8, int=3, int=3, int=5, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::dgrad_engine<float, int=128, int=6, int=8, int=3, int=3, int=5, bool=1>*, kernel_grad_params, int, int, float, int, int, int)
+  0.17%  18.482ms        33  560.05us  450.77us  751.94us  maxwell_scudnn_128x32_relu_medium_nn
+  0.16%  17.149ms        16  1.0718ms  577.63us  1.9113ms  void cudnn::detail::wgrad_alg0_engine<float, int=128, int=6, int=8, int=3, int=3, int=5, bool=1, int=512>(int, int, int, float const *, int, cudnn::detail::wgrad_alg0_engine<float, int=128, int=6, int=8, int=3, int=3, int=5, bool=1, int=512>*, float const , kernel_grad_params, int, float, int, int, int, int)
+  0.14%  15.519ms         4  3.8798ms  526.46us  7.2453ms  void pointwise_mult_and_sum_complex<float2, int=8, int=4>(float2*, float2*, float2*, int, int, int, int, int, float2)
+  0.14%  15.313ms         6  2.5522ms  1.8927ms  3.8732ms  void fft2d_r2c_32x32<float, unsigned int=1, bool=1>(float2*, float const *, int, int, int, int, int, int, int, int, int, cudnn::reduced_divisor, bool)
+  0.14%  14.610ms        10  1.4610ms  560.38us  2.3783ms  void cudnn::detail::implicit_convolve_sgemm<float, int=512, int=6, int=8, int=3, int=3, int=5, int=1, bool=1, bool=0, bool=1>(int, int, int, float const *, int, cudnn::detail::implicit_convolve_sgemm<float, int=512, int=6, int=8, int=3, int=3, int=5, int=1, bool=1, bool=0, bool=1>*, float const *, kernel_conv_params, int, float, float, int, float const *, float const *, int, int)
+  0.13%  14.194ms         6  2.3657ms  1.7409ms  3.6003ms  void fft2d_r2c_32x32<float, unsigned int=1, bool=0>(float2*, float const *, int, int, int, int, int, int, int, int, int, cudnn::reduced_divisor, bool)
+  0.12%  12.690ms       248  51.167us  2.5610us  317.20us  void cudnn::detail::activation_fw_4d_kernel<float, float, int=128, int=1, int=4, cudnn::detail::relu_func<float, cudnnNanPropagation_t=0, bool=0>>(cudnnTensorStruct, float const *, cudnn::detail::activation_fw_4d_kernel<float, float, int=128, int=1, int=4, cudnn::detail::relu_func<float, cudnnNanPropagation_t=0, bool=0>>, cudnnTensorStruct*, float, cudnnTensorStruct*, int, cudnnTensorStruct*)
+  0.11%  12.160ms         4  3.0399ms  1.7218ms  4.5597ms  maxwell_sgemmBatched_128x64_raggedMn_nn
+  0.11%  11.379ms         4  2.8448ms  1.6917ms  4.2566ms  maxwell_sgemmBatched_128x64_raggedMn_nt
+  0.10%  11.232ms       248  45.289us  2.4000us  252.78us  void add_tensor_kernel_v3<int=2, float, float, int=128, int=1, int=1, int=4, int=2>(cudnnTensorStruct, float*, cudnnTensorStruct, float const *, float, float)
+  0.10%  11.197ms        62  180.60us  87.044us  269.36us  void cudnn::detail::lrnForward_evenC<int=5, float, float>(cudnn::detail::LrnForwardParams<float, float>)
+  0.09%  9.2255ms        10  922.55us  644.09us  1.2898ms  void cudnn::detail::implicit_convolve_sgemm<float, int=128, int=6, int=7, int=3, int=3, int=5, int=1, bool=1, bool=0, bool=1>(int, int, int, float const *, int, cudnn::detail::implicit_convolve_sgemm<float, int=128, int=6, int=7, int=3, int=3, int=5, int=1, bool=1, bool=0, bool=1>*, float const *, kernel_conv_params, int, float, float, int, float const *, float const *, int, int)
+  0.08%  8.2797ms       136  60.880us  35.426us  83.172us  void cudnn::winograd::generateWinogradTilesKernel<int=0, float, float>(cudnn::winograd::GenerateWinogradTilesParams<float, float>)
+  0.07%  7.7438ms        62  124.90us  36.098us  212.71us  void cudnn::detail::pooling_fw_4d_kernel<float, float, cudnn::detail::maxpooling_func<float, cudnnNanPropagation_t=0>, int=0>(cudnnTensorStruct, float const *, cudnn::detail::pooling_fw_4d_kernel<float, float, cudnn::detail::maxpooling_func<float, cudnnNanPropagation_t=0>, int=0>, cudnnTensorStruct*, cudnnPoolingStruct, float, cudnnPoolingStruct, int, cudnn::reduced_divisor, float)
+  0.07%  7.4056ms         4  1.8514ms  1.1759ms  2.7225ms  maxwell_scudnn_128x128_stridedB_splitK_large_nn
+  0.06%  6.8096ms       775  8.7860us     928ns  121.54us  void mshadow::cuda::MapPlanKernel<mshadow::sv::saveto, int=8, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=1, float>, float>, mshadow::expr::Plan<mshadow::expr::ScalarExp<float>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=1)
+  0.05%  5.4716ms         8  683.95us  144.84us  2.5340ms  maxwell_sgemmBatched_64x64_raggedMn_nt
+  0.05%  5.3339ms         5  1.0668ms  668.54us  1.7943ms  void cudnn::detail::explicit_convolve_sgemm<float, int, int=128, int=6, int=7, int=3, int=3, int=5, int=0, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::explicit_convolve_sgemm<float, int, int=128, int=6, int=7, int=3, int=3, int=5, int=0, bool=1>*, kernel_conv_params, int, int, float, float, int, float const *, float const *)
+  0.05%  5.0069ms         4  1.2517ms  874.09us  1.8051ms  maxwell_scudnn_128x32_stridedB_splitK_large_nn
+  0.04%  4.7781ms         4  1.1945ms  912.14us  1.4721ms  void cudnn::detail::wgrad_alg0_engine<float, int=128, int=6, int=7, int=3, int=3, int=5, bool=1, int=512>(int, int, int, float const *, int, cudnn::detail::wgrad_alg0_engine<float, int=128, int=6, int=7, int=3, int=3, int=5, bool=1, int=512>*, float const , kernel_grad_params, int, float, int, int, int, int)
+  0.04%  4.7706ms         5  954.11us  466.93us  1.8431ms  void cudnn::detail::explicit_convolve_sgemm<float, int, int=512, int=6, int=8, int=3, int=3, int=5, int=0, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::explicit_convolve_sgemm<float, int, int=512, int=6, int=8, int=3, int=3, int=5, int=0, bool=1>*, kernel_conv_params, int, int, float, float, int, float const *, float const *)
+  0.04%  4.7338ms        12  394.48us  205.23us  541.95us  void cudnn::winograd_nonfused::winogradForwardData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)
+  0.04%  4.5340ms        12  377.83us  197.13us  518.14us  void cudnn::winograd_nonfused::winogradForwardOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradOutputParams<float, float>)
+  0.04%  4.0938ms         2  2.0469ms  1.7371ms  2.3566ms  maxwell_sgemmBatched_64x64_raggedMn_nn
+  0.04%  3.9785ms         6  663.08us  358.16us  1.1200ms  maxwell_scudnn_128x128_stridedB_small_nn
+  0.03%  3.6886ms         1  3.6886ms  3.6886ms  3.6886ms  void cudnn::detail::dgrad2d_alg1_1<float, int=0, int=6, int=6, int=5, int=4, int=4, bool=1, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::dgrad2d_alg1_1<float, int=0, int=6, int=6, int=5, int=4, int=4, bool=1, bool=1>*, kernel_grad_params, int, int, float, int, int)
+  0.03%  2.8127ms         2  1.4063ms  1.4058ms  1.4068ms  void cudnn::detail::dgrad_engine<float, int=128, int=6, int=7, int=3, int=3, int=5, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::dgrad_engine<float, int=128, int=6, int=7, int=3, int=3, int=5, bool=1>*, kernel_grad_params, int, int, float, int, int, int)
+  0.03%  2.7036ms       217  12.458us  7.2320us  15.137us  void thrust::system::cuda::detail::cub_::RadixSortScanBinsKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxScanPolicy, int>(float*, int)
+  0.02%  2.5103ms        14  179.30us  82.116us  405.71us  void im2col4d_kernel<float, int>(im2col4d_params, cudnnConvolutionStruct, cudnnTensor4dStruct, float const *, float*, int)
+  0.02%  2.4959ms        66  37.815us  25.953us  41.954us  void cudnn::detail::implicit_convolve_sgemm<float, int=128, int=5, int=5, int=3, int=3, int=3, int=1, bool=1, bool=0, bool=1>(int, int, int, float const *, int, cudnn::detail::implicit_convolve_sgemm<float, int=128, int=5, int=5, int=3, int=3, int=3, int=1, bool=1, bool=0, bool=1>*, float const *, kernel_conv_params, int, float, float, int, float const *, float const *, int, int)
+  0.02%  2.4189ms        62  39.014us  31.873us  39.554us  void gemm_kernel1x1_core<float, bool=0, bool=0, bool=0, bool=1, bool=0>(float*, float const *, float const *, int, int, int, int, int, int, float*, float*, float, float, int)
+  0.02%  1.9762ms        20  98.807us  4.2880us  389.52us  void flip_filter<float, float>(float*, float const *, int, int, int, int)
+  0.02%  1.6090ms        60  26.816us  14.592us  44.546us  void fft2d_c2r_32x32<float, bool=0, unsigned int=0, bool=0, bool=0>(float*, float2 const *, int, int, int, int, int, int, int, int, int, float, float, cudnn::reduced_divisor, bool, float*, float*)
+  0.01%  1.5596ms        60  25.992us  15.297us  39.458us  void fft2d_r2c_32x32<float, unsigned int=0, bool=0>(float2*, float const *, int, int, int, int, int, int, int, int, int, cudnn::reduced_divisor, bool)
+  0.01%  1.2530ms       124  10.104us  6.7200us  14.784us  void thrust::system::cuda::detail::cub_::DeviceRadixSortDownsweepKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxDownsweepPolicy, bool=1, float, int, int>(int*, int, int*, int, thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxDownsweepPolicy*, int*, int, int, bool, bool, thrust::system::cuda::detail::cub_::GridEvenShare<int*>)
+  0.01%  1.0964ms        12  91.369us  65.731us  141.64us  void cudnn::winograd_nonfused::winogradForwardFilter4x4<float, float>(cudnn::winograd_nonfused::WinogradFilterParams<float, float>)
+  0.01%  1.0742ms        32  33.567us  6.9440us  114.76us  void scaleTensor_kernel<float, float, int=16, int=16>(cudnnTensor4dStruct, float*, float)
+  0.01%  950.70us        31  30.667us  23.617us  31.233us  mshadow::cuda::nms_kernel(int, float, float const *, unsigned long*)
+  0.01%  943.18us        93  10.141us  6.4640us  14.305us  void thrust::system::cuda::detail::cub_::DeviceRadixSortDownsweepKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxAltDownsweepPolicy, bool=1, float, int, int>(int*, int, int*, int, thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxAltDownsweepPolicy*, int*, int, int, bool, bool, thrust::system::cuda::detail::cub_::GridEvenShare<int*>)
+  0.01%  788.20us         6  131.37us  100.90us  182.47us  void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)
+  0.01%  554.52us       124  4.4710us  3.1680us  5.8880us  void thrust::system::cuda::detail::cub_::DeviceRadixSortUpsweepKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxUpsweepPolicy, bool=1, float, int>(int*, int*, int*, int, int, bool, thrust::system::cuda::detail::cub_::GridEvenShare<int*>)
+  0.01%  539.58us        62  8.7020us  6.5610us  9.1840us  void mshadow::cuda::MapPlanKernel<mshadow::sv::saveto, int=8, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=4, float>, float>, mshadow::expr::Plan<mshadow::expr::ScalarExp<float>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=4)
+  0.00%  528.60us         8  66.075us  55.811us  77.315us  void cudnn::detail::wgrad_alg0_engine<float, int=512, int=6, int=5, int=3, int=3, int=3, bool=1, int=512>(int, int, int, float const *, int, cudnn::detail::wgrad_alg0_engine<float, int=512, int=6, int=5, int=3, int=3, int=3, bool=1, int=512>*, float const , kernel_grad_params, int, float, int, int, int, int)
+  0.00%  455.51us         4  113.88us  36.642us  223.53us  maxwell_scudnn_128x64_stridedB_splitK_interior_nn
+  0.00%  410.07us        93  4.4090us  3.0720us  5.6320us  void thrust::system::cuda::detail::cub_::DeviceRadixSortUpsweepKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxAltUpsweepPolicy, bool=1, float, int>(int*, int*, int*, int, int, bool, thrust::system::cuda::detail::cub_::GridEvenShare<int*>)
+  0.00%  376.44us        20  18.821us  14.497us  23.905us  void fft1d_r2c_32<float, float, float2, bool=0, bool=0>(float2*, float const *, int, int3, int3, int2, int2)
+  0.00%  359.41us        31  11.593us  9.2480us  11.873us  void mshadow::cuda::ProposalGridKernel<float>(int, int, int, int, int, float const *, mshadow::cuda::ProposalGridKernel<float>*)
+  0.00%  283.47us         4  70.867us  26.785us  139.08us  maxwell_scudnn_128x32_stridedB_splitK_interior_nn
+  0.00%  271.72us       124  2.1910us  1.0880us  4.1280us  void mshadow::cuda::MapPlanKernel<mshadow::sv::plusto, int=8, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=2, float>, float>, mshadow::expr::Plan<mshadow::expr::Broadcast1DExp<mshadow::Tensor<mshadow::gpu, int=1, float>, float, int=2, int=1>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=2)
+  0.00%  257.10us         6  42.849us  22.721us  59.490us  void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)
+  0.00%  255.95us        28  9.1400us  1.0560us  26.369us  void cudnn::maxwell::gemm::setOutputKernel<float>(int, float*, float)
+  0.00%  255.69us        86  2.9730us  1.6960us  5.3120us  cudnn::maxwell::gemm::computeOffsetsKernel(cudnn::maxwell::gemm::ComputeOffsetsParams)
+  0.00%  252.75us         6  42.124us  23.297us  60.643us  void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)
+  0.00%  228.81us        31  7.3810us  5.9520us  7.6170us  void mshadow::cuda::BBoxPredKernel<float>(int, int, int, int, int, int, float, float, float const *, float const , mshadow::cuda::BBoxPredKernel<float>*)
+  0.00%  173.39us        16  10.836us  9.1840us  14.113us  void fft1d_c2r_32<float2, float, float, bool=0, bool=1, bool=0, bool=0>(float*, float2 const *, int, int3, int3, int2, int, float, float, float*, float*)
+  0.00%  168.04us        31  5.4200us  4.5770us  5.5050us  void mxnet::op::mxnet_op::softmax_compute_kernel<int=7, mxnet::op::mxnet_op::softmax_fwd, float, int=2>(float*, float, unsigned int, int, mshadow::Shape<int=2>, mshadow<int=2>)
+  0.00%  164.33us        31  5.3000us  4.1600us  5.3770us  void mshadow::cuda::ReorderProposalsKernel<float>(int, float const *, int const *, mshadow::cuda::ReorderProposalsKernel<float>*)
+  0.00%  153.45us        62  2.4740us  1.3120us  9.5360us  void mshadow::cuda::MapPlanKernel<mshadow::sv::saveto, int=8, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=2, float>, float>, mshadow::expr::Plan<mshadow::expr::UnaryMapExp<mxnet::op::mshadow_op::identity, mshadow::Tensor<mshadow::gpu, int=2, float>, float, int=1>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=2)
+  0.00%  135.24us         4  33.809us  29.122us  37.889us  void cudnn::detail::implicit_convolve_sgemm<float, int=1024, int=5, int=5, int=3, int=3, int=3, int=1, bool=1, bool=0, bool=1>(int, int, int, float const *, int, cudnn::detail::implicit_convolve_sgemm<float, int=1024, int=5, int=5, int=3, int=3, int=3, int=1, bool=1, bool=0, bool=1>*, float const *, kernel_conv_params, int, float, float, int, float const *, float const *, int, int)
+  0.00%  121.16us        31  3.9080us  3.2000us  4.0000us  void cudnn::detail::softmax_fw_channel_4d_kernel<float, float, int=256, int=1>(cudnnTensorStruct, float const *, cudnn::detail::softmax_fw_channel_4d_kernel<float, float, int=256, int=1>, cudnnTensorStruct*, int, float, cudnnTensorStruct*, int, int)
+  0.00%  94.340us         4  23.585us  21.633us  25.697us  void cudnn::detail::explicit_convolve_sgemm<float, int, int=128, int=5, int=5, int=3, int=3, int=3, int=0, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::explicit_convolve_sgemm<float, int, int=128, int=5, int=5, int=3, int=3, int=3, int=0, bool=1>*, kernel_conv_params, int, int, float, float, int, float const *, float const *)
+  0.00%  85.703us        31  2.7640us  2.1760us  2.8480us  void mshadow::cuda::FilterBoxKernel<float>(int, float, float*)
+  0.00%  82.532us        22  3.7510us  3.6160us  4.2560us  compute_gemm_pointers(float2**, float2 const *, int, float2 const *, int, float2 const *, int, int)
+  0.00%  81.250us        31  2.6200us  2.0800us  2.6880us  void mshadow::cuda::PrepareOutput<float>(int, float const *, int const *, int, mshadow::cuda::PrepareOutput<float>*, int const *)
+  0.00%  80.001us        62  1.2900us     928ns  1.4080us  [CUDA memcpy DtoD]
+  0.00%  74.243us         4  18.560us  18.208us  18.913us  void fft1d_r2c_32<float, float, float2, bool=1, bool=0>(float2*, float const *, int, int3, int3, int2, int2)
+  0.00%  68.227us         4  17.056us  15.617us  19.009us  maxwell_scudnn_128x128_stridedB_interior_nn
+  0.00%  64.262us        38  1.6910us  1.1520us  1.9850us  cudnn::maxwell::gemm::computeBOffsetsKernel(cudnn::maxwell::gemm::ComputeBOffsetsParams)
+  0.00%  61.442us         2  30.721us  30.305us  31.137us  maxwell_scudnn_128x64_relu_interior_nn
+  0.00%  57.592us        42  1.3710us     576ns  4.7060us  [CUDA memset]
+  0.00%  57.027us        28  2.0360us  1.7920us  3.0400us  cudnn::maxwell::gemm::computeWgradOffsetsKernel(cudnn::maxwell::gemm::ComputeOffsetsParams)
+  0.00%  53.954us        31  1.7400us  1.3760us  1.8240us  void mshadow::cuda::CopyScoreKernel<float>(int, float const *, mshadow::cuda::CopyScoreKernel<float>*, int*)
+  0.00%  48.195us         2  24.097us  23.841us  24.354us  maxwell_scudnn_128x32_relu_interior_nn
+
+==14660== API calls:
+Time(%)      Time     Calls       Avg       Min       Max  Name
+ 48.19%  19.0477s      2449  7.7777ms  6.0290us  136.95ms  cudaMemcpy2DAsync
+ 31.14%  12.3073s      4095  3.0054ms  6.4330us  135.59ms  cudaLaunch
+  9.90%  3.91431s         4  978.58ms  978.54ms  978.63ms  cudaStreamCreate
+  3.73%  1.47296s        16  92.060ms  16.006us  736.33ms  cudaStreamCreateWithFlags
+  2.57%  1.01481s       234  4.3368ms  5.0540us  53.271ms  cudaEventSynchronize
+  2.13%  840.40ms       414  2.0300ms     889ns  360.45ms  cudaFree
+  1.25%  495.50ms       480  1.0323ms  10.695us  80.067ms  cudaMalloc
+  0.54%  214.67ms      3286  65.328us  1.7140us  3.8659ms  cudaStreamSynchronize
+  0.30%  116.83ms       128  912.76us  10.196us  4.1659ms  cudaMemcpy
+  0.08%  31.597ms        63  501.54us  269.19us  1.1224ms  cudaMemGetInfo
+  0.03%  12.946ms     26826     482ns     147ns  514.98us  cudaSetupArgument
+  0.03%  9.9091ms      5792  1.7100us     420ns  47.177us  cudaSetDevice
+  0.02%  9.1705ms       164  55.917us     456ns  4.3569ms  cudaEventCreateWithFlags
+  0.02%  7.4713ms       780  9.5780us  1.0350us  2.3333ms  cudaEventRecord
+  0.02%  6.4506ms       334  19.313us     702ns  5.5298ms  cudaUnbindTexture
+  0.01%  4.4249ms       334  13.248us  2.3920us  1.5380ms  cudaBindTexture
+  0.01%  3.3827ms      4095     826ns     206ns  40.112us  cudaConfigureCall
+  0.01%  2.5321ms       234  10.820us  3.2500us  25.635us  cudaEventElapsedTime
+  0.01%  2.4227ms       351  6.9020us     132ns  870.60us  cuDeviceGetAttribute
+  0.01%  2.1902ms         4  547.54us  259.12us  669.75us  cuDeviceTotalMem
+  0.00%  1.6866ms       310  5.4400us  2.5840us  16.821us  cudaFuncGetAttributes
+  0.00%  1.5894ms      1953     813ns     237ns  9.5110us  cudaPeekAtLastError
+  0.00%  1.5370ms        62  24.790us  9.7110us  44.423us  cudaMemcpyAsync
+  0.00%  1.2317ms      2359     522ns     188ns  34.841us  cudaGetLastError
+  0.00%  1.0488ms         1  1.0488ms  1.0488ms  1.0488ms  cudaMallocPitch
+  0.00%  1.0417ms        42  24.801us  9.0170us  76.442us  cudaMemsetAsync
+  0.00%  945.47us       508  1.8610us  1.1070us  19.775us  cudaStreamWaitEvent
+  0.00%  537.05us       434  1.2370us     658ns  3.0940us  cudaDeviceSetSharedMemConfig
+  0.00%  442.26us         1  442.26us  442.26us  442.26us  cudaGetDeviceProperties
+  0.00%  290.18us       104  2.7900us  1.0350us  6.2340us  cudaEventDestroy
+  0.00%  224.55us         4  56.136us  40.512us  81.469us  cuDeviceGetName
+  0.00%  222.56us       250     890ns     276ns  2.5600us  cudaDeviceGetAttribute
+  0.00%  174.37us         2  87.183us  68.497us  105.87us  cudaStreamCreateWithPriority
+  0.00%  129.21us        69  1.8720us     469ns  5.6220us  cudaGetDevice
+  0.00%  102.79us        62  1.6570us     632ns  2.5850us  cudaDeviceGetSharedMemConfig
+  0.00%  90.829us        20  4.5410us  3.8940us  5.2290us  cudaEventCreate
+  0.00%  4.5200us         5     904ns     285ns  2.1900us  cuDeviceGetCount
+  0.00%  3.3940us         3  1.1310us     640ns  1.5400us  cuInit
+  0.00%  3.3090us         2  1.6540us  1.1340us  2.1750us  cudaDeviceGetStreamPriorityRange
+  0.00%  2.4940us         3     831ns     501ns  1.3500us  cuDriverGetVersion
+  0.00%  2.3060us         5     461ns     256ns     611ns  cuDeviceGet
+==14932== Profiling application: /home/tracking/work/penv/mxnet-py2/bin/python /home/tracking/work/git/mxnet/example/rcnn/batch.py ./test_clip.avi
+==14932== Profiling result:
+Time(%)      Time     Calls       Avg       Min       Max  Name
+ 71.03%  8.12220s      1786  4.5477ms     640ns  135.17ms  [CUDA memcpy HtoD]
+ 17.22%  1.96951s       957  2.0580ms     736ns  56.114ms  [CUDA memcpy DtoH]
+  2.33%  266.28ms        78  3.4139ms  4.0320us  23.639ms  void transpose_readWrite_alignment_kernel<float2, float2, int=1, bool=0, int=6, int=4, int=4>(cublasTransposeParams<float2>, float2 const *, float2*, float2 const *)
+  1.12%  127.62ms        76  1.6792ms  22.529us  3.1839ms  maxwell_gcgemmBatched_32x32_raggedMn_nt
+  0.91%  104.39ms        22  4.7451ms  374.87us  12.526ms  void fermiPlusCgemmLDS128_batched<bool=1, bool=0, bool=0, bool=0, int=4, int=4, int=4, int=3, int=3, bool=1, bool=0>(float2**, float2**, float2**, float2*, float2 const *, float2 const *, int, int, int, int, int, int, __int64, __int64, __int64, float2 const *, float2 const *, float2, float2, int)
+  0.86%  98.890ms        66  1.4983ms  260.46us  2.7061ms  void magma_lds128_sgemm_kernel<bool=1, bool=0, int=6, int=6, int=4, int=3, int=4>(int, int, int, float const *, int, float const *, int, float*, int, int, int, float const *, float const *, float, float, int)
+  0.82%  93.262ms        60  1.5544ms  15.136us  11.438ms  void fft2d_r2c_64x64<float>(float2*, float const *, int, int, int, int, int, int, int, int)
+  0.78%  89.325ms         3  29.775ms  4.4376ms  53.091ms  void cudnn::detail::dgrad2d_alg1_1<float, int=0, int=6, int=7, int=5, int=4, int=5, bool=1, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::dgrad2d_alg1_1<float, int=0, int=6, int=7, int=5, int=4, int=5, bool=1, bool=1>*, kernel_grad_params, int, int, float, int, int)
+  0.50%  57.552ms       144  399.67us  223.98us  651.33us  maxwell_scudnn_winograd_128x128_ldg1_ldg4_tile148n_nt
+  0.43%  49.090ms        30  1.6363ms  19.809us  11.750ms  void fft2d_c2r_64x64<float, bool=0>(float*, float2*, int, int, int, int, int, int, int, int, int, int, float, float, int, float*, float*)
+  0.32%  37.157ms        41  906.27us  357.33us  1.6180ms  maxwell_scudnn_128x128_relu_small_nn
+  0.31%  35.390ms        33  1.0724ms  869.39us  1.1398ms  void mshadow::cuda::ROIPoolForwardKernel<float>(int, float const *, float, int, int, int, int, int, float const , mshadow::cuda::ROIPoolForwardKernel<float>*, float const *)
+  0.28%  31.795ms         4  7.9488ms  5.3120ms  10.533ms  cudnn_maxwell_cgemm_64x64_tn_batched
+  0.26%  30.000ms        33  909.09us  886.16us  921.90us  void mshadow::cuda::MapPlanLargeKernel<mshadow::sv::saveto, int=8, int=1024, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=1, float>, float>, mshadow::expr::Plan<mshadow::expr::ScalarExp<float>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=1, int)
+  0.23%  26.259ms        12  2.1882ms  1.1732ms  4.2797ms  maxwell_scudnn_128x128_stridedB_splitK_medium_nn
+  0.18%  20.490ms        26  788.08us  23.137us  2.2646ms  void cudnn::detail::dgrad_engine<float, int=128, int=6, int=8, int=3, int=3, int=5, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::dgrad_engine<float, int=128, int=6, int=8, int=3, int=3, int=5, bool=1>*, kernel_grad_params, int, int, float, int, int, int)
+  0.17%  19.428ms        35  555.08us  448.89us  750.08us  maxwell_scudnn_128x32_relu_medium_nn
+  0.15%  17.152ms        16  1.0720ms  579.52us  1.8958ms  void cudnn::detail::wgrad_alg0_engine<float, int=128, int=6, int=8, int=3, int=3, int=5, bool=1, int=512>(int, int, int, float const *, int, cudnn::detail::wgrad_alg0_engine<float, int=128, int=6, int=8, int=3, int=3, int=5, bool=1, int=512>*, float const , kernel_grad_params, int, float, int, int, int, int)
+  0.14%  15.510ms         4  3.8774ms  534.55us  7.2223ms  void pointwise_mult_and_sum_complex<float2, int=8, int=4>(float2*, float2*, float2*, int, int, int, int, int, float2)
+  0.13%  15.326ms         6  2.5544ms  1.8894ms  3.8759ms  void fft2d_r2c_32x32<float, unsigned int=1, bool=1>(float2*, float const *, int, int, int, int, int, int, int, int, int, cudnn::reduced_divisor, bool)
+  0.13%  14.531ms        10  1.4531ms  542.33us  2.3795ms  void cudnn::detail::implicit_convolve_sgemm<float, int=512, int=6, int=8, int=3, int=3, int=5, int=1, bool=1, bool=0, bool=1>(int, int, int, float const *, int, cudnn::detail::implicit_convolve_sgemm<float, int=512, int=6, int=8, int=3, int=3, int=5, int=1, bool=1, bool=0, bool=1>*, float const *, kernel_conv_params, int, float, float, int, float const *, float const *, int, int)
+  0.12%  14.195ms         6  2.3659ms  1.7424ms  3.6135ms  void fft2d_r2c_32x32<float, unsigned int=1, bool=0>(float2*, float const *, int, int, int, int, int, int, int, int, int, cudnn::reduced_divisor, bool)
+  0.12%  13.420ms       264  50.832us  2.5280us  315.82us  void cudnn::detail::activation_fw_4d_kernel<float, float, int=128, int=1, int=4, cudnn::detail::relu_func<float, cudnnNanPropagation_t=0, bool=0>>(cudnnTensorStruct, float const *, cudnn::detail::activation_fw_4d_kernel<float, float, int=128, int=1, int=4, cudnn::detail::relu_func<float, cudnnNanPropagation_t=0, bool=0>>, cudnnTensorStruct*, float, cudnnTensorStruct*, int, cudnnTensorStruct*)
+  0.11%  12.165ms         4  3.0413ms  1.7201ms  4.5516ms  maxwell_sgemmBatched_128x64_raggedMn_nn
+  0.10%  11.954ms       264  45.279us  2.1450us  254.89us  void add_tensor_kernel_v3<int=2, float, float, int=128, int=1, int=1, int=4, int=2>(cudnnTensorStruct, float*, cudnnTensorStruct, float const *, float, float)
+  0.10%  11.904ms        66  180.37us  86.660us  270.13us  void cudnn::detail::lrnForward_evenC<int=5, float, float>(cudnn::detail::LrnForwardParams<float, float>)
+  0.10%  11.484ms         4  2.8710ms  1.6880ms  4.3498ms  maxwell_sgemmBatched_128x64_raggedMn_nt
+  0.08%  9.2809ms        10  928.09us  645.82us  1.2919ms  void cudnn::detail::implicit_convolve_sgemm<float, int=128, int=6, int=7, int=3, int=3, int=5, int=1, bool=1, bool=0, bool=1>(int, int, int, float const *, int, cudnn::detail::implicit_convolve_sgemm<float, int=128, int=6, int=7, int=3, int=3, int=5, int=1, bool=1, bool=0, bool=1>*, float const *, kernel_conv_params, int, float, float, int, float const *, float const *, int, int)
+  0.08%  8.7072ms       144  60.466us  35.362us  83.140us  void cudnn::winograd::generateWinogradTilesKernel<int=0, float, float>(cudnn::winograd::GenerateWinogradTilesParams<float, float>)
+  0.07%  8.2143ms        66  124.46us  35.426us  213.00us  void cudnn::detail::pooling_fw_4d_kernel<float, float, cudnn::detail::maxpooling_func<float, cudnnNanPropagation_t=0>, int=0>(cudnnTensorStruct, float const *, cudnn::detail::pooling_fw_4d_kernel<float, float, cudnn::detail::maxpooling_func<float, cudnnNanPropagation_t=0>, int=0>, cudnnTensorStruct*, cudnnPoolingStruct, float, cudnnPoolingStruct, int, cudnn::reduced_divisor, float)
+  0.06%  7.4003ms         4  1.8501ms  1.1838ms  2.6962ms  maxwell_scudnn_128x128_stridedB_splitK_large_nn
+  0.06%  6.9886ms       825  8.4710us     736ns  56.931us  void mshadow::cuda::MapPlanKernel<mshadow::sv::saveto, int=8, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=1, float>, float>, mshadow::expr::Plan<mshadow::expr::ScalarExp<float>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=1)
+  0.05%  5.4910ms         8  686.38us  144.65us  2.5431ms  maxwell_sgemmBatched_64x64_raggedMn_nt
+  0.05%  5.4214ms         5  1.0843ms  661.34us  1.8114ms  void cudnn::detail::explicit_convolve_sgemm<float, int, int=128, int=6, int=7, int=3, int=3, int=5, int=0, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::explicit_convolve_sgemm<float, int, int=128, int=6, int=7, int=3, int=3, int=5, int=0, bool=1>*, kernel_conv_params, int, int, float, float, int, float const *, float const *)
+  0.04%  5.0048ms         4  1.2512ms  869.80us  1.7997ms  maxwell_scudnn_128x32_stridedB_splitK_large_nn
+  0.04%  4.8286ms         5  965.73us  483.35us  1.8394ms  void cudnn::detail::explicit_convolve_sgemm<float, int, int=512, int=6, int=8, int=3, int=3, int=5, int=0, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::explicit_convolve_sgemm<float, int, int=512, int=6, int=8, int=3, int=3, int=5, int=0, bool=1>*, kernel_conv_params, int, int, float, float, int, float const *, float const *)
+  0.04%  4.7872ms         4  1.1968ms  920.91us  1.4734ms  void cudnn::detail::wgrad_alg0_engine<float, int=128, int=6, int=7, int=3, int=3, int=5, bool=1, int=512>(int, int, int, float const *, int, cudnn::detail::wgrad_alg0_engine<float, int=128, int=6, int=7, int=3, int=3, int=5, bool=1, int=512>*, float const , kernel_grad_params, int, float, int, int, int, int)
+  0.04%  4.7397ms        12  394.97us  207.79us  540.19us  void cudnn::winograd_nonfused::winogradForwardData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)
+  0.04%  4.5298ms        12  377.48us  196.94us  518.04us  void cudnn::winograd_nonfused::winogradForwardOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradOutputParams<float, float>)
+  0.04%  4.1608ms         2  2.0804ms  1.7547ms  2.4061ms  maxwell_sgemmBatched_64x64_raggedMn_nn
+  0.04%  4.0362ms         6  672.70us  358.96us  1.1731ms  maxwell_scudnn_128x128_stridedB_small_nn
+  0.03%  3.6820ms         1  3.6820ms  3.6820ms  3.6820ms  void cudnn::detail::dgrad2d_alg1_1<float, int=0, int=6, int=6, int=5, int=4, int=4, bool=1, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::dgrad2d_alg1_1<float, int=0, int=6, int=6, int=5, int=4, int=4, bool=1, bool=1>*, kernel_grad_params, int, int, float, int, int)
+  0.02%  2.8515ms       231  12.344us  7.2000us  15.168us  void thrust::system::cuda::detail::cub_::RadixSortScanBinsKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxScanPolicy, int>(float*, int)
+  0.02%  2.8148ms         2  1.4074ms  1.4043ms  1.4106ms  void cudnn::detail::dgrad_engine<float, int=128, int=6, int=7, int=3, int=3, int=5, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::dgrad_engine<float, int=128, int=6, int=7, int=3, int=3, int=5, bool=1>*, kernel_grad_params, int, int, float, int, int, int)
+  0.02%  2.5379ms        66  38.452us  31.713us  39.554us  void gemm_kernel1x1_core<float, bool=0, bool=0, bool=0, bool=1, bool=0>(float*, float const *, float const *, int, int, int, int, int, int, float*, float*, float, float, int)
+  0.02%  2.5094ms        14  179.25us  81.956us  412.44us  void im2col4d_kernel<float, int>(im2col4d_params, cudnnConvolutionStruct, cudnnTensor4dStruct, float const *, float*, int)
+  0.02%  1.9802ms        20  99.009us  4.2880us  390.61us  void flip_filter<float, float>(float*, float const *, int, int, int, int)
+  0.01%  1.5843ms        60  26.404us  15.040us  42.210us  void fft2d_r2c_32x32<float, unsigned int=0, bool=0>(float2*, float const *, int, int, int, int, int, int, int, int, int, cudnn::reduced_divisor, bool)
+  0.01%  1.5655ms        60  26.091us  14.625us  42.338us  void fft2d_c2r_32x32<float, bool=0, unsigned int=0, bool=0, bool=0>(float*, float2 const *, int, int, int, int, int, int, int, int, int, float, float, cudnn::reduced_divisor, bool, float*, float*)
+  0.01%  1.4779ms        37  39.943us  26.850us  42.754us  void cudnn::detail::implicit_convolve_sgemm<float, int=128, int=5, int=5, int=3, int=3, int=3, int=1, bool=1, bool=0, bool=1>(int, int, int, float const *, int, cudnn::detail::implicit_convolve_sgemm<float, int=128, int=5, int=5, int=3, int=3, int=3, int=1, bool=1, bool=0, bool=1>*, float const *, kernel_conv_params, int, float, float, int, float const *, float const *, int, int)
+  0.01%  1.3131ms       132  9.9470us  6.7200us  14.657us  void thrust::system::cuda::detail::cub_::DeviceRadixSortDownsweepKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxDownsweepPolicy, bool=1, float, int, int>(int*, int, int*, int, thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxDownsweepPolicy*, int*, int, int, bool, bool, thrust::system::cuda::detail::cub_::GridEvenShare<int*>)
+  0.01%  1.1307ms        35  32.306us  24.065us  33.633us  maxwell_scudnn_128x32_relu_interior_nn
+  0.01%  1.0968ms        12  91.401us  66.531us  140.42us  void cudnn::winograd_nonfused::winogradForwardFilter4x4<float, float>(cudnn::winograd_nonfused::WinogradFilterParams<float, float>)
+  0.01%  1.0761ms        32  33.629us  7.0080us  114.79us  void scaleTensor_kernel<float, float, int=16, int=16>(cudnnTensor4dStruct, float*, float)
+  0.01%  1.0078ms        33  30.540us  23.841us  31.457us  mshadow::cuda::nms_kernel(int, float, float const *, unsigned long*)
+  0.01%  1.0062ms        99  10.163us  6.4960us  14.593us  void thrust::system::cuda::detail::cub_::DeviceRadixSortDownsweepKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxAltDownsweepPolicy, bool=1, float, int, int>(int*, int, int*, int, thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxAltDownsweepPolicy*, int*, int, int, bool, bool, thrust::system::cuda::detail::cub_::GridEvenShare<int*>)
+  0.01%  784.01us         6  130.67us  101.99us  183.88us  void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)
+  0.01%  604.88us       132  4.5820us  3.2960us  5.9840us  void thrust::system::cuda::detail::cub_::DeviceRadixSortUpsweepKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxUpsweepPolicy, bool=1, float, int>(int*, int*, int*, int, int, bool, thrust::system::cuda::detail::cub_::GridEvenShare<int*>)
+  0.00%  565.79us        66  8.5720us  6.5600us  8.9930us  void mshadow::cuda::MapPlanKernel<mshadow::sv::saveto, int=8, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=4, float>, float>, mshadow::expr::Plan<mshadow::expr::ScalarExp<float>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=4)
+  0.00%  534.75us         8  66.843us  55.011us  77.668us  void cudnn::detail::wgrad_alg0_engine<float, int=512, int=6, int=5, int=3, int=3, int=3, bool=1, int=512>(int, int, int, float const *, int, cudnn::detail::wgrad_alg0_engine<float, int=512, int=6, int=5, int=3, int=3, int=3, bool=1, int=512>*, float const , kernel_grad_params, int, float, int, int, int, int)
+  0.00%  451.32us         4  112.83us  36.386us  222.76us  maxwell_scudnn_128x64_stridedB_splitK_interior_nn
+  0.00%  437.97us        99  4.4230us  3.0720us  5.6970us  void thrust::system::cuda::detail::cub_::DeviceRadixSortUpsweepKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxAltUpsweepPolicy, bool=1, float, int>(int*, int*, int*, int, int, bool, thrust::system::cuda::detail::cub_::GridEvenShare<int*>)
+  0.00%  383.44us        33  11.619us  9.2490us  11.969us  void mshadow::cuda::ProposalGridKernel<float>(int, int, int, int, int, float const *, mshadow::cuda::ProposalGridKernel<float>*)
+  0.00%  380.44us        20  19.021us  14.529us  24.257us  void fft1d_r2c_32<float, float, float2, bool=0, bool=0>(float2*, float const *, int, int3, int3, int2, int2)
+  0.00%  321.68us       123  2.6150us  1.6320us  5.1520us  cudnn::maxwell::gemm::computeOffsetsKernel(cudnn::maxwell::gemm::ComputeOffsetsParams)
+  0.00%  283.41us         4  70.851us  27.137us  138.63us  maxwell_scudnn_128x32_stridedB_splitK_interior_nn
+  0.00%  276.68us       132  2.0960us  1.1200us  4.1280us  void mshadow::cuda::MapPlanKernel<mshadow::sv::plusto, int=8, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=2, float>, float>, mshadow::expr::Plan<mshadow::expr::Broadcast1DExp<mshadow::Tensor<mshadow::gpu, int=1, float>, float, int=2, int=1>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=2)
+  0.00%  260.40us        28  9.2990us  1.0880us  26.657us  void cudnn::maxwell::gemm::setOutputKernel<float>(int, float*, float)
+  0.00%  255.37us         6  42.562us  22.369us  58.723us  void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)
+  0.00%  253.52us         6  42.252us  22.978us  61.379us  void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)
+  0.00%  244.56us        33  7.4100us  5.9840us  7.6490us  void mshadow::cuda::BBoxPredKernel<float>(int, int, int, int, int, int, float, float, float const *, float const , mshadow::cuda::BBoxPredKernel<float>*)
+  0.00%  177.26us        33  5.3710us  4.2880us  5.5360us  void mshadow::cuda::ReorderProposalsKernel<float>(int, float const *, int const *, mshadow::cuda::ReorderProposalsKernel<float>*)
+  0.00%  170.70us        16  10.668us  9.0250us  14.337us  void fft1d_c2r_32<float2, float, float, bool=0, bool=1, bool=0, bool=0>(float*, float2 const *, int, int3, int3, int2, int, float, float, float*, float*)
+  0.00%  169.29us        33  5.1300us  4.3520us  5.3440us  void mxnet::op::mxnet_op::softmax_compute_kernel<int=7, mxnet::op::mxnet_op::softmax_fwd, float, int=2>(float*, float, unsigned int, int, mshadow::Shape<int=2>, mshadow<int=2>)
+  0.00%  157.93us        66  2.3920us  1.3760us  3.2640us  void mshadow::cuda::MapPlanKernel<mshadow::sv::saveto, int=8, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=2, float>, float>, mshadow::expr::Plan<mshadow::expr::UnaryMapExp<mxnet::op::mshadow_op::identity, mshadow::Tensor<mshadow::gpu, int=2, float>, float, int=1>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=2)
+  0.00%  138.53us         4  34.633us  29.153us  39.617us  void cudnn::detail::implicit_convolve_sgemm<float, int=1024, int=5, int=5, int=3, int=3, int=3, int=1, bool=1, bool=0, bool=1>(int, int, int, float const *, int, cudnn::detail::implicit_convolve_sgemm<float, int=1024, int=5, int=5, int=3, int=3, int=3, int=1, bool=1, bool=0, bool=1>*, float const *, kernel_conv_params, int, float, float, int, float const *, float const *, int, int)
+  0.00%  128.36us        33  3.8890us  3.2000us  4.0640us  void cudnn::detail::softmax_fw_channel_4d_kernel<float, float, int=256, int=1>(cudnnTensorStruct, float const *, cudnn::detail::softmax_fw_channel_4d_kernel<float, float, int=256, int=1>, cudnnTensorStruct*, int, float, cudnnTensorStruct*, int, int)
+  0.00%  95.430us         4  23.857us  21.825us  26.018us  void cudnn::detail::explicit_convolve_sgemm<float, int, int=128, int=5, int=5, int=3, int=3, int=3, int=0, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::explicit_convolve_sgemm<float, int, int=128, int=5, int=5, int=3, int=3, int=3, int=0, bool=1>*, kernel_conv_params, int, int, float, float, int, float const *, float const *)
+  0.00%  93.604us        33  2.8360us  2.3040us  2.9760us  void mshadow::cuda::FilterBoxKernel<float>(int, float, float*)
+  0.00%  88.772us        33  2.6900us  2.1760us  2.8810us  void mshadow::cuda::PrepareOutput<float>(int, float const *, int const *, int, mshadow::cuda::PrepareOutput<float>*, int const *)
+  0.00%  83.938us        66  1.2710us     928ns  1.4400us  [CUDA memcpy DtoD]
+  0.00%  82.503us        22  3.7500us  3.5850us  4.2560us  compute_gemm_pointers(float2**, float2 const *, int, float2 const *, int, float2 const *, int, int)
+  0.00%  72.164us         4  18.041us  17.697us  18.465us  void fft1d_r2c_32<float, float, float2, bool=1, bool=0>(float2*, float const *, int, int3, int3, int2, int2)
+  0.00%  68.355us         4  17.088us  15.521us  18.817us  maxwell_scudnn_128x128_stridedB_interior_nn
+  0.00%  62.339us         2  31.169us  30.337us  32.002us  maxwell_scudnn_128x64_relu_interior_nn
+  0.00%  61.950us        42  1.4750us     576ns  4.9090us  [CUDA memset]
+  0.00%  61.283us        33  1.8570us  1.5040us  1.9520us  void mshadow::cuda::CopyScoreKernel<float>(int, float const *, mshadow::cuda::CopyScoreKernel<float>*, int*)
+  0.00%  60.993us        38  1.6050us  1.1200us  1.9200us  cudnn::maxwell::gemm::computeBOffsetsKernel(cudnn::maxwell::gemm::ComputeBOffsetsParams)
+  0.00%  56.069us        28  2.0020us  1.7600us  2.8160us  cudnn::maxwell::gemm::computeWgradOffsetsKernel(cudnn::maxwell::gemm::ComputeOffsetsParams)
+
+==14932== API calls:
+Time(%)      Time     Calls       Avg       Min       Max  Name
+ 48.77%  20.4885s      2607  7.8590ms  6.6130us  139.88ms  cudaMemcpy2DAsync
+ 31.56%  13.2589s      4334  3.0593ms  8.8590us  139.59ms  cudaLaunch
+  8.42%  3.53631s         4  884.08ms  884.01ms  884.17ms  cudaStreamCreate
+  4.01%  1.68362s        16  105.23ms  16.794us  841.45ms  cudaStreamCreateWithFlags
+  2.47%  1.03779s       428  2.4248ms     685ns  460.84ms  cudaFree
+  2.40%  1.00972s       234  4.3150ms  4.7680us  53.228ms  cudaEventSynchronize
+  1.26%  527.38ms       494  1.0676ms  12.766us  79.163ms  cudaMalloc
+  0.55%  229.71ms      3498  65.669us  1.8770us  3.7431ms  cudaStreamSynchronize
+  0.30%  126.90ms       136  933.06us  16.696us  4.0309ms  cudaMemcpy
+  0.08%  33.900ms        63  538.10us  293.21us  1.3980ms  cudaMemGetInfo
+  0.03%  13.632ms     27524     495ns     171ns  676.79us  cudaSetupArgument
+  0.03%  11.125ms      6164  1.8040us     437ns  34.366us  cudaSetDevice
+  0.02%  9.7130ms       780  12.452us     953ns  4.3183ms  cudaEventRecord
+  0.02%  8.3583ms       313  26.703us  1.1600us  7.4786ms  cudaUnbindTexture
+  0.02%  6.4741ms       313  20.684us  2.8680us  3.5882ms  cudaBindTexture
+  0.01%  3.7366ms       351  10.645us     180ns  1.0676ms  cuDeviceGetAttribute
+  0.01%  3.5922ms      4334     828ns     287ns  45.570us  cudaConfigureCall
+  0.01%  2.3195ms         4  579.88us  343.90us  711.14us  cuDeviceTotalMem
+  0.01%  2.3088ms       234  9.8660us  3.1370us  24.528us  cudaEventElapsedTime
+  0.00%  1.9437ms       330  5.8900us  4.6040us  9.9990us  cudaFuncGetAttributes
+  0.00%  1.8448ms      2079     887ns     331ns  12.313us  cudaPeekAtLastError
+  0.00%  1.5802ms        66  23.942us  15.795us  35.739us  cudaMemcpyAsync
+  0.00%  1.3752ms      2507     548ns     257ns  28.981us  cudaGetLastError
+  0.00%  1.1560ms        42  27.523us  8.5360us  59.402us  cudaMemsetAsync
+  0.00%  1.0505ms       164  6.4050us     544ns  117.02us  cudaEventCreateWithFlags
+  0.00%  1.0398ms         1  1.0398ms  1.0398ms  1.0398ms  cudaMallocPitch
+  0.00%  969.43us       508  1.9080us     990ns  23.434us  cudaStreamWaitEvent
+  0.00%  643.65us       462  1.3930us  1.1160us  9.8750us  cudaDeviceSetSharedMemConfig
+  0.00%  458.19us         1  458.19us  458.19us  458.19us  cudaGetDeviceProperties
+  0.00%  370.00us         4  92.501us  53.707us  189.15us  cuDeviceGetName
+  0.00%  289.10us       104  2.7790us  1.0470us  6.5340us  cudaEventDestroy
+  0.00%  258.11us       262     985ns     330ns  5.0780us  cudaDeviceGetAttribute
+  0.00%  136.48us        73  1.8690us     982ns  6.4790us  cudaGetDevice
+  0.00%  126.72us         2  63.359us  39.134us  87.584us  cudaStreamCreateWithPriority
+  0.00%  126.57us        66  1.9170us  1.2260us  2.7660us  cudaDeviceGetSharedMemConfig
+  0.00%  110.46us        20  5.5220us  3.7650us  18.273us  cudaEventCreate
+  0.00%  5.3170us         5  1.0630us     357ns  2.3370us  cuDeviceGetCount
+  0.00%  3.9930us         3  1.3310us     906ns  1.6500us  cuInit
+  0.00%  3.6670us         2  1.8330us  1.2710us  2.3960us  cudaDeviceGetStreamPriorityRange
+  0.00%  3.2510us         3  1.0830us     504ns  1.4840us  cuDriverGetVersion
+  0.00%  2.5920us         5     518ns     348ns     671ns  cuDeviceGet
+==18196== Profiling application: /home/tracking/work/penv/mxnet-py2/bin/python /home/tracking/work/git/mxnet/example/rcnn/batch.py ./test_clip.avi
+==18196== Profiling result:
+Time(%)      Time     Calls       Avg       Min       Max  Name
+ 61.70%  2.75640s       686  4.0181ms     608ns  137.32ms  [CUDA memcpy HtoD]
+ 14.90%  665.64ms       429  1.5516ms     736ns  55.402ms  [CUDA memcpy DtoH]
+  2.92%  130.64ms        76  1.7190ms  21.281us  3.4070ms  maxwell_gcgemmBatched_32x32_raggedMn_nt
+  2.79%  124.68ms        60  2.0780ms  3.4240us  11.826ms  void transpose_readWrite_alignment_kernel<float2, float2, int=1, bool=0, int=6, int=4, int=4>(cublasTransposeParams<float2>, float2 const *, float2*, float2 const *)
+  2.21%  98.786ms        66  1.4968ms  261.32us  2.7039ms  void magma_lds128_sgemm_kernel<bool=1, bool=0, int=6, int=6, int=4, int=3, int=4>(int, int, int, float const *, int, float const *, int, float*, int, int, int, float const *, float const *, float, float, int)
+  2.00%  89.296ms         3  29.765ms  4.4022ms  53.104ms  void cudnn::detail::dgrad2d_alg1_1<float, int=0, int=6, int=7, int=5, int=4, int=5, bool=1, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::dgrad2d_alg1_1<float, int=0, int=6, int=7, int=5, int=4, int=5, bool=1, bool=1>*, kernel_grad_params, int, int, float, int, int)
+  1.30%  58.193ms       144  404.11us  223.18us  710.30us  maxwell_scudnn_winograd_128x128_ldg1_ldg4_tile148n_nt
+  1.26%  56.393ms        18  3.1329ms  376.08us  7.6088ms  void fermiPlusCgemmLDS128_batched<bool=1, bool=0, bool=0, bool=0, int=4, int=4, int=4, int=3, int=3, bool=1, bool=0>(float2**, float2**, float2**, float2*, float2 const *, float2 const *, int, int, int, int, int, int, __int64, __int64, __int64, float2 const *, float2 const *, float2, float2, int)
+  1.09%  48.877ms        48  1.0183ms  15.105us  5.8219ms  void fft2d_r2c_64x64<float>(float2*, float const *, int, int, int, int, int, int, int, int)
+  0.83%  36.969ms        41  901.69us  356.72us  1.3977ms  maxwell_scudnn_128x128_relu_small_nn
+  0.79%  35.313ms        33  1.0701ms  876.74us  1.1339ms  void mshadow::cuda::ROIPoolForwardKernel<float>(int, float const *, float, int, int, int, int, int, float const , mshadow::cuda::ROIPoolForwardKernel<float>*, float const *)
+  0.60%  26.914ms        12  2.2428ms  1.1772ms  4.5577ms  maxwell_scudnn_128x128_stridedB_splitK_medium_nn
+  0.57%  25.451ms        24  1.0605ms  19.361us  5.8971ms  void fft2d_c2r_64x64<float, bool=0>(float*, float2*, int, int, int, int, int, int, int, int, int, int, float, float, int, float*, float*)
+  0.46%  20.492ms        26  788.14us  23.745us  2.2345ms  void cudnn::detail::dgrad_engine<float, int=128, int=6, int=8, int=3, int=3, int=5, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::dgrad_engine<float, int=128, int=6, int=8, int=3, int=3, int=5, bool=1>*, kernel_grad_params, int, int, float, int, int, int)
+  0.43%  19.391ms        35  554.03us  449.40us  751.24us  maxwell_scudnn_128x32_relu_medium_nn
+  0.39%  17.576ms        16  1.0985ms  580.03us  1.9091ms  void cudnn::detail::wgrad_alg0_engine<float, int=128, int=6, int=8, int=3, int=3, int=5, bool=1, int=512>(int, int, int, float const *, int, cudnn::detail::wgrad_alg0_engine<float, int=128, int=6, int=8, int=3, int=3, int=5, bool=1, int=512>*, float const , kernel_grad_params, int, float, int, int, int, int)
+  0.35%  15.486ms         4  3.8715ms  526.49us  7.2509ms  void pointwise_mult_and_sum_complex<float2, int=8, int=4>(float2*, float2*, float2*, int, int, int, int, int, float2)
+  0.34%  15.356ms         6  2.5594ms  1.8890ms  3.9038ms  void fft2d_r2c_32x32<float, unsigned int=1, bool=1>(float2*, float const *, int, int, int, int, int, int, int, int, int, cudnn::reduced_divisor, bool)
+  0.33%  14.533ms        10  1.4533ms  545.43us  2.3662ms  void cudnn::detail::implicit_convolve_sgemm<float, int=512, int=6, int=8, int=3, int=3, int=5, int=1, bool=1, bool=0, bool=1>(int, int, int, float const *, int, cudnn::detail::implicit_convolve_sgemm<float, int=512, int=6, int=8, int=3, int=3, int=5, int=1, bool=1, bool=0, bool=1>*, float const *, kernel_conv_params, int, float, float, int, float const *, float const *, int, int)
+  0.32%  14.261ms         6  2.3768ms  1.7531ms  3.6146ms  void fft2d_r2c_32x32<float, unsigned int=1, bool=0>(float2*, float const *, int, int, int, int, int, int, int, int, int, cudnn::reduced_divisor, bool)
+  0.30%  13.391ms       264  50.724us  2.5280us  314.51us  void cudnn::detail::activation_fw_4d_kernel<float, float, int=128, int=1, int=4, cudnn::detail::relu_func<float, cudnnNanPropagation_t=0, bool=0>>(cudnnTensorStruct, float const *, cudnn::detail::activation_fw_4d_kernel<float, float, int=128, int=1, int=4, cudnn::detail::relu_func<float, cudnnNanPropagation_t=0, bool=0>>, cudnnTensorStruct*, float, cudnnTensorStruct*, int, cudnnTensorStruct*)
+  0.29%  12.768ms         4  3.1920ms  1.7126ms  4.9482ms  maxwell_sgemmBatched_128x64_raggedMn_nn
+  0.27%  12.138ms       264  45.977us  2.3680us  261.13us  void add_tensor_kernel_v3<int=2, float, float, int=128, int=1, int=1, int=4, int=2>(cudnnTensorStruct, float*, cudnnTensorStruct, float const *, float, float)
+  0.26%  11.786ms        66  178.57us  85.860us  266.22us  void cudnn::detail::lrnForward_evenC<int=5, float, float>(cudnn::detail::LrnForwardParams<float, float>)
+  0.26%  11.597ms         4  2.8994ms  1.6903ms  4.4714ms  maxwell_sgemmBatched_128x64_raggedMn_nt
+  0.24%  10.738ms         2  5.3688ms  5.3120ms  5.4257ms  cudnn_maxwell_cgemm_64x64_tn_batched
+  0.22%  10.001ms        11  909.14us  901.67us  921.93us  void mshadow::cuda::MapPlanLargeKernel<mshadow::sv::saveto, int=8, int=1024, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=1, float>, float>, mshadow::expr::Plan<mshadow::expr::ScalarExp<float>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=1, int)
+  0.22%  9.6295ms        10  962.95us  644.54us  1.4398ms  void cudnn::detail::implicit_convolve_sgemm<float, int=128, int=6, int=7, int=3, int=3, int=5, int=1, bool=1, bool=0, bool=1>(int, int, int, float const *, int, cudnn::detail::implicit_convolve_sgemm<float, int=128, int=6, int=7, int=3, int=3, int=5, int=1, bool=1, bool=0, bool=1>*, float const *, kernel_conv_params, int, float, float, int, float const *, float const *, int, int)
+  0.20%  8.7752ms       144  60.938us  35.393us  82.884us  void cudnn::winograd::generateWinogradTilesKernel<int=0, float, float>(cudnn::winograd::GenerateWinogradTilesParams<float, float>)
+  0.18%  8.2563ms        66  125.10us  35.778us  214.67us  void cudnn::detail::pooling_fw_4d_kernel<float, float, cudnn::detail::maxpooling_func<float, cudnnNanPropagation_t=0>, int=0>(cudnnTensorStruct, float const *, cudnn::detail::pooling_fw_4d_kernel<float, float, cudnn::detail::maxpooling_func<float, cudnnNanPropagation_t=0>, int=0>, cudnnTensorStruct*, cudnnPoolingStruct, float, cudnnPoolingStruct, int, cudnn::reduced_divisor, float)
+  0.17%  7.4095ms         4  1.8524ms  1.1748ms  2.7389ms  maxwell_scudnn_128x128_stridedB_splitK_large_nn
+  0.12%  5.4837ms         8  685.46us  145.16us  2.5361ms  maxwell_sgemmBatched_64x64_raggedMn_nt
+  0.12%  5.4245ms         5  1.0849ms  691.94us  1.8063ms  void cudnn::detail::explicit_convolve_sgemm<float, int, int=128, int=6, int=7, int=3, int=3, int=5, int=0, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::explicit_convolve_sgemm<float, int, int=128, int=6, int=7, int=3, int=3, int=5, int=0, bool=1>*, kernel_conv_params, int, int, float, float, int, float const *, float const *)
+  0.11%  5.0278ms         4  1.2569ms  875.34us  1.8127ms  maxwell_scudnn_128x32_stridedB_splitK_large_nn
+  0.11%  4.7549ms         4  1.1887ms  913.51us  1.4704ms  void cudnn::detail::wgrad_alg0_engine<float, int=128, int=6, int=7, int=3, int=3, int=5, bool=1, int=512>(int, int, int, float const *, int, cudnn::detail::wgrad_alg0_engine<float, int=128, int=6, int=7, int=3, int=3, int=5, bool=1, int=512>*, float const , kernel_grad_params, int, float, int, int, int, int)
+  0.11%  4.7293ms        12  394.11us  205.42us  539.48us  void cudnn::winograd_nonfused::winogradForwardData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)
+  0.11%  4.7292ms         5  945.84us  471.16us  1.8323ms  void cudnn::detail::explicit_convolve_sgemm<float, int, int=512, int=6, int=8, int=3, int=3, int=5, int=0, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::explicit_convolve_sgemm<float, int, int=512, int=6, int=8, int=3, int=3, int=5, int=0, bool=1>*, kernel_conv_params, int, int, float, float, int, float const *, float const *)
+  0.10%  4.5235ms        12  376.96us  195.82us  520.86us  void cudnn::winograd_nonfused::winogradForwardOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradOutputParams<float, float>)
+  0.09%  4.1673ms         2  2.0836ms  1.7364ms  2.4308ms  maxwell_sgemmBatched_64x64_raggedMn_nn
+  0.09%  4.0620ms         6  677.01us  358.87us  1.1739ms  maxwell_scudnn_128x128_stridedB_small_nn
+  0.09%  3.9400ms         1  3.9400ms  3.9400ms  3.9400ms  void cudnn::detail::dgrad2d_alg1_1<float, int=0, int=6, int=6, int=5, int=4, int=4, bool=1, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::dgrad2d_alg1_1<float, int=0, int=6, int=6, int=5, int=4, int=4, bool=1, bool=1>*, kernel_grad_params, int, int, float, int, int)
+  0.06%  2.8737ms       231  12.440us  7.2960us  15.361us  void thrust::system::cuda::detail::cub_::RadixSortScanBinsKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxScanPolicy, int>(float*, int)
+  0.06%  2.7994ms         2  1.3997ms  1.3972ms  1.4022ms  void cudnn::detail::dgrad_engine<float, int=128, int=6, int=7, int=3, int=3, int=5, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::dgrad_engine<float, int=128, int=6, int=7, int=3, int=3, int=5, bool=1>*, kernel_grad_params, int, int, float, int, int, int)
+  0.06%  2.5397ms        66  38.480us  31.873us  39.458us  void gemm_kernel1x1_core<float, bool=0, bool=0, bool=0, bool=1, bool=0>(float*, float const *, float const *, int, int, int, int, int, int, float*, float*, float, float, int)
+  0.06%  2.5136ms        14  179.54us  82.852us  401.36us  void im2col4d_kernel<float, int>(im2col4d_params, cudnnConvolutionStruct, cudnnTensor4dStruct, float const *, float*, int)
+  0.05%  2.3746ms       275  8.6340us     928ns  56.834us  void mshadow::cuda::MapPlanKernel<mshadow::sv::saveto, int=8, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=1, float>, float>, mshadow::expr::Plan<mshadow::expr::ScalarExp<float>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=1)
+  0.04%  1.6240ms        60  27.066us  14.592us  45.987us  void fft2d_c2r_32x32<float, bool=0, unsigned int=0, bool=0, bool=0>(float*, float2 const *, int, int, int, int, int, int, int, int, int, float, float, cudnn::reduced_divisor, bool, float*, float*)
+  0.04%  1.5744ms        60  26.239us  13.856us  42.242us  void fft2d_r2c_32x32<float, unsigned int=0, bool=0>(float2*, float const *, int, int, int, int, int, int, int, int, int, cudnn::reduced_divisor, bool)
+  0.03%  1.4814ms        37  40.037us  26.689us  43.522us  void cudnn::detail::implicit_convolve_sgemm<float, int=128, int=5, int=5, int=3, int=3, int=3, int=1, bool=1, bool=0, bool=1>(int, int, int, float const *, int, cudnn::detail::implicit_convolve_sgemm<float, int=128, int=5, int=5, int=3, int=3, int=3, int=1, bool=1, bool=0, bool=1>*, float const *, kernel_conv_params, int, float, float, int, float const *, float const *, int, int)
+  0.03%  1.4750ms        35  42.144us  31.009us  44.130us  maxwell_scudnn_128x64_relu_interior_nn
+  0.03%  1.2969ms       132  9.8240us  6.6560us  14.689us  void thrust::system::cuda::detail::cub_::DeviceRadixSortDownsweepKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxDownsweepPolicy, bool=1, float, int, int>(int*, int, int*, int, thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxDownsweepPolicy*, int*, int, int, bool, bool, thrust::system::cuda::detail::cub_::GridEvenShare<int*>)
+  0.02%  1.0983ms        12  91.524us  65.795us  140.74us  void cudnn::winograd_nonfused::winogradForwardFilter4x4<float, float>(cudnn::winograd_nonfused::WinogradFilterParams<float, float>)
+  0.02%  1.0837ms        16  67.731us  4.4170us  215.75us  void flip_filter<float, float>(float*, float const *, int, int, int, int)
+  0.02%  1.0805ms        32  33.764us  6.7840us  114.89us  void scaleTensor_kernel<float, float, int=16, int=16>(cudnnTensor4dStruct, float*, float)
+  0.02%  1.0122ms        99  10.223us  6.5600us  14.529us  void thrust::system::cuda::detail::cub_::DeviceRadixSortDownsweepKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxAltDownsweepPolicy, bool=1, float, int, int>(int*, int, int*, int, thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxAltDownsweepPolicy*, int*, int, int, bool, bool, thrust::system::cuda::detail::cub_::GridEvenShare<int*>)
+  0.02%  1.0014ms        33  30.344us  23.873us  31.330us  mshadow::cuda::nms_kernel(int, float, float const *, unsigned long*)
+  0.02%  785.86us         6  130.98us  102.18us  184.42us  void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)
+  0.01%  599.23us       132  4.5390us  3.2960us  5.9200us  void thrust::system::cuda::detail::cub_::DeviceRadixSortUpsweepKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxUpsweepPolicy, bool=1, float, int>(int*, int*, int*, int, int, bool, thrust::system::cuda::detail::cub_::GridEvenShare<int*>)
+  0.01%  562.10us        66  8.5160us  6.5600us  8.9290us  void mshadow::cuda::MapPlanKernel<mshadow::sv::saveto, int=8, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=4, float>, float>, mshadow::expr::Plan<mshadow::expr::ScalarExp<float>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=4)
+  0.01%  538.23us         8  67.279us  55.651us  77.987us  void cudnn::detail::wgrad_alg0_engine<float, int=512, int=6, int=5, int=3, int=3, int=3, bool=1, int=512>(int, int, int, float const *, int, cudnn::detail::wgrad_alg0_engine<float, int=512, int=6, int=5, int=3, int=3, int=3, bool=1, int=512>*, float const , kernel_grad_params, int, float, int, int, int, int)
+  0.01%  448.53us         4  112.13us  35.810us  222.86us  maxwell_scudnn_128x64_stridedB_splitK_interior_nn
+  0.01%  442.68us        99  4.4710us  3.1040us  5.8880us  void thrust::system::cuda::detail::cub_::DeviceRadixSortUpsweepKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxAltUpsweepPolicy, bool=1, float, int>(int*, int*, int*, int, int, bool, thrust::system::cuda::detail::cub_::GridEvenShare<int*>)
+  0.01%  382.48us        33  11.590us  9.3130us  12.001us  void mshadow::cuda::ProposalGridKernel<float>(int, int, int, int, int, float const *, mshadow::cuda::ProposalGridKernel<float>*)
+  0.01%  374.96us        20  18.748us  14.401us  23.553us  void fft1d_r2c_32<float, float, float2, bool=0, bool=0>(float2*, float const *, int, int3, int3, int2, int2)
+  0.01%  331.12us       123  2.6920us  1.6640us  5.1840us  cudnn::maxwell::gemm::computeOffsetsKernel(cudnn::maxwell::gemm::ComputeOffsetsParams)
+  0.01%  284.65us         4  71.163us  26.881us  137.93us  maxwell_scudnn_128x32_stridedB_splitK_interior_nn
+  0.01%  279.43us       132  2.1160us  1.1200us  4.0320us  void mshadow::cuda::MapPlanKernel<mshadow::sv::plusto, int=8, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=2, float>, float>, mshadow::expr::Plan<mshadow::expr::Broadcast1DExp<mshadow::Tensor<mshadow::gpu, int=1, float>, float, int=2, int=1>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=2)
+  0.01%  264.46us        28  9.4450us  1.0880us  28.897us  void cudnn::maxwell::gemm::setOutputKernel<float>(int, float*, float)
+  0.01%  255.98us         6  42.663us  22.337us  59.523us  void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)
+  0.01%  248.65us         6  41.442us  22.753us  60.163us  void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)
+  0.01%  244.91us        33  7.4210us  5.9520us  7.6800us  void mshadow::cuda::BBoxPredKernel<float>(int, int, int, int, int, int, float, float, float const *, float const , mshadow::cuda::BBoxPredKernel<float>*)
+  0.00%  175.56us        33  5.3200us  4.5130us  5.5050us  void mxnet::op::mxnet_op::softmax_compute_kernel<int=7, mxnet::op::mxnet_op::softmax_fwd, float, int=2>(float*, float, unsigned int, int, mshadow::Shape<int=2>, mshadow<int=2>)
+  0.00%  175.40us        33  5.3150us  4.2560us  5.4730us  void mshadow::cuda::ReorderProposalsKernel<float>(int, float const *, int const *, mshadow::cuda::ReorderProposalsKernel<float>*)
+  0.00%  170.34us        16  10.646us  8.9600us  13.856us  void fft1d_c2r_32<float2, float, float, bool=0, bool=1, bool=0, bool=0>(float*, float2 const *, int, int3, int3, int2, int, float, float, float*, float*)
+  0.00%  155.49us        66  2.3550us  1.2480us  3.3280us  void mshadow::cuda::MapPlanKernel<mshadow::sv::saveto, int=8, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=2, float>, float>, mshadow::expr::Plan<mshadow::expr::UnaryMapExp<mxnet::op::mshadow_op::identity, mshadow::Tensor<mshadow::gpu, int=2, float>, float, int=1>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=2)
+  0.00%  136.90us         4  34.225us  28.897us  39.234us  void cudnn::detail::implicit_convolve_sgemm<float, int=1024, int=5, int=5, int=3, int=3, int=3, int=1, bool=1, bool=0, bool=1>(int, int, int, float const *, int, cudnn::detail::implicit_convolve_sgemm<float, int=1024, int=5, int=5, int=3, int=3, int=3, int=1, bool=1, bool=0, bool=1>*, float const *, kernel_conv_params, int, float, float, int, float const *, float const *, int, int)
+  0.00%  134.44us        33  4.0730us  3.2960us  8.0330us  void cudnn::detail::softmax_fw_channel_4d_kernel<float, float, int=256, int=1>(cudnnTensorStruct, float const *, cudnn::detail::softmax_fw_channel_4d_kernel<float, float, int=256, int=1>, cudnnTensorStruct*, int, float, cudnnTensorStruct*, int, int)
+  0.00%  94.405us        33  2.8600us  2.3040us  3.0080us  void mshadow::cuda::FilterBoxKernel<float>(int, float, float*)
+  0.00%  94.180us         4  23.545us  21.665us  25.537us  void cudnn::detail::explicit_convolve_sgemm<float, int, int=128, int=5, int=5, int=3, int=3, int=3, int=0, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::explicit_convolve_sgemm<float, int, int=128, int=5, int=5, int=3, int=3, int=3, int=0, bool=1>*, kernel_conv_params, int, int, float, float, int, float const *, float const *)
+  0.00%  89.701us        33  2.7180us  2.2080us  2.8480us  void mshadow::cuda::PrepareOutput<float>(int, float const *, int const *, int, mshadow::cuda::PrepareOutput<float>*, int const *)
+  0.00%  83.969us        66  1.2720us     896ns  1.4720us  [CUDA memcpy DtoD]
+  0.00%  73.827us         4  18.456us  18.113us  18.817us  void fft1d_r2c_32<float, float, float2, bool=1, bool=0>(float2*, float const *, int, int3, int3, int2, int2)
+  0.00%  72.772us         4  18.193us  17.409us  19.105us  maxwell_scudnn_128x128_stridedB_interior_nn
+  0.00%  67.970us        18  3.7760us  3.5840us  4.5120us  compute_gemm_pointers(float2**, float2 const *, int, float2 const *, int, float2 const *, int, int)
+  0.00%  65.795us        38  1.7310us  1.1200us  2.1120us  cudnn::maxwell::gemm::computeBOffsetsKernel(cudnn::maxwell::gemm::ComputeBOffsetsParams)
+  0.00%  60.961us        33  1.8470us  1.5040us  2.1120us  void mshadow::cuda::CopyScoreKernel<float>(int, float const *, mshadow::cuda::CopyScoreKernel<float>*, int*)
+  0.00%  59.191us        42  1.4090us     576ns  3.5240us  [CUDA memset]
+  0.00%  56.962us        28  2.0340us  1.7600us  3.0080us  cudnn::maxwell::gemm::computeWgradOffsetsKernel(cudnn::maxwell::gemm::ComputeOffsetsParams)
+  0.00%  47.554us         2  23.777us  23.681us  23.873us  maxwell_scudnn_128x32_relu_interior_nn
+
+==18196== API calls:
+Time(%)      Time     Calls       Avg       Min       Max  Name
+ 36.14%  6.88984s       979  7.0376ms  5.6690us  143.24ms  cudaMemcpy2DAsync
+ 22.96%  4.37818s      3712  1.1795ms  6.4460us  142.13ms  cudaLaunch
+ 20.38%  3.88558s         4  971.40ms  971.33ms  971.48ms  cudaStreamCreate
+  7.76%  1.47865s        16  92.416ms  16.221us  738.99ms  cudaStreamCreateWithFlags
+  4.40%  839.60ms       422  1.9896ms     699ns  373.24ms  cudaFree
+  3.88%  739.49ms       228  3.2434ms  6.2940us  53.287ms  cudaEventSynchronize
+  2.46%  468.72ms       494  948.82us  14.253us  80.223ms  cudaMalloc
+  0.85%  162.04ms      1298  124.84us  1.8860us  3.9402ms  cudaStreamSynchronize
+  0.69%  130.90ms       136  962.48us  9.9450us  4.3669ms  cudaMemcpy
+  0.15%  28.802ms        63  457.17us  250.23us  1.0515ms  cudaMemGetInfo
+  0.07%  14.036ms       744  18.864us     932ns  5.2181ms  cudaEventRecord
+  0.06%  11.140ms     24748     450ns     156ns  699.18us  cudaSetupArgument
+  0.04%  7.2273ms       164  44.068us     532ns  6.3566ms  cudaEventCreateWithFlags
+  0.03%  5.1441ms       313  16.434us     626ns  4.3581ms  cudaUnbindTexture
+  0.02%  4.2490ms      2072  2.0500us     334ns  535.46us  cudaSetDevice
+  0.01%  2.8133ms      3712     757ns     215ns  15.782us  cudaConfigureCall
+  0.01%  2.6705ms       313  8.5320us  2.0170us  165.10us  cudaBindTexture
+  0.01%  2.5940ms       351  7.3900us     136ns  834.31us  cuDeviceGetAttribute
+  0.01%  2.1001ms       228  9.2100us  2.8090us  23.617us  cudaEventElapsedTime
+  0.01%  1.7075ms       330  5.1740us  2.5230us  9.5540us  cudaFuncGetAttributes
+  0.01%  1.6550ms         4  413.75us  251.97us  574.42us  cuDeviceTotalMem
+  0.01%  1.4987ms        66  22.708us  9.3740us  37.426us  cudaMemcpyAsync
+  0.01%  1.2695ms      2445     519ns     185ns  17.704us  cudaGetLastError
+  0.01%  1.0909ms        42  25.973us  9.4580us  59.576us  cudaMemsetAsync
+  0.01%  1.0127ms         1  1.0127ms  1.0127ms  1.0127ms  cudaMallocPitch
+  0.00%  872.24us      1507     578ns     200ns  7.9070us  cudaPeekAtLastError
+  0.00%  869.76us       484  1.7970us     924ns  4.7910us  cudaStreamWaitEvent
+  0.00%  577.88us       462  1.2500us     610ns  3.9850us  cudaDeviceSetSharedMemConfig
+  0.00%  440.98us         1  440.98us  440.98us  440.98us  cudaGetDeviceProperties
+  0.00%  286.24us       104  2.7520us     975ns  15.582us  cudaEventDestroy
+  0.00%  244.15us         4  61.038us  54.465us  75.313us  cuDeviceGetName
+  0.00%  228.79us       262     873ns     307ns  11.847us  cudaDeviceGetAttribute
+  0.00%  128.59us         2  64.295us  39.979us  88.612us  cudaStreamCreateWithPriority
+  0.00%  118.75us        73  1.6260us     441ns  9.6120us  cudaGetDevice
+  0.00%  114.28us        20  5.7130us  3.5950us  17.979us  cudaEventCreate
+  0.00%  100.58us        66  1.5230us     573ns  2.6520us  cudaDeviceGetSharedMemConfig
+  0.00%  4.2900us         5     858ns     357ns  2.1250us  cuDeviceGetCount
+  0.00%  3.5090us         3  1.1690us     949ns  1.5570us  cuInit
+  0.00%  3.4710us         2  1.7350us  1.2990us  2.1720us  cudaDeviceGetStreamPriorityRange
+  0.00%  2.5910us         3     863ns     470ns  1.3460us  cuDriverGetVersion
+  0.00%  2.5350us         5     507ns     297ns     617ns  cuDeviceGet
+ 延时2s播放一次传递6张图片
+ ==7717== Profiling application: /home/tracking/work/penv/mxnet-py2/bin/python /home/tracking/work/git/mxnet/example/rcnn/batch.py ./test_clip.avi
+==7717== Profiling result:
+Time(%)      Time     Calls       Avg       Min       Max  Name
+ 53.56%  1.21354s       374  3.2448ms     640ns  132.85ms  [CUDA memcpy HtoD]
+ 13.27%  300.59ms       270  1.1133ms     736ns  56.194ms  [CUDA memcpy DtoH]
+  5.91%  133.93ms        76  1.7622ms  20.577us  3.4220ms  maxwell_gcgemmBatched_32x32_raggedMn_nt
+  4.03%  91.384ms         3  30.461ms  4.4879ms  53.532ms  void cudnn::detail::dgrad2d_alg1_1<float, int=0, int=6, int=7, int=5, int=4, int=5, bool=1, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::dgrad2d_alg1_1<float, int=0, int=6, int=7, int=5, int=4, int=5, bool=1, bool=1>*, kernel_grad_params, int, int, float, int, int)
+  3.96%  89.728ms        60  1.4955ms  261.58us  2.7244ms  void magma_lds128_sgemm_kernel<bool=1, bool=0, int=6, int=6, int=4, int=3, int=4>(int, int, int, float const *, int, float const *, int, float*, int, int, int, float const *, float const *, float, float, int)
+  2.30%  52.056ms       132  394.37us  224.08us  712.90us  maxwell_scudnn_winograd_128x128_ldg1_ldg4_tile148n_nt
+  1.49%  33.691ms        38  886.60us  378.80us  1.4097ms  maxwell_scudnn_128x128_relu_small_nn
+  1.39%  31.573ms        30  1.0524ms  853.58us  1.1546ms  void mshadow::cuda::ROIPoolForwardKernel<float>(int, float const *, float, int, int, int, int, int, float const , mshadow::cuda::ROIPoolForwardKernel<float>*, float const *)
+  1.20%  27.117ms        12  2.2597ms  1.1517ms  4.5869ms  maxwell_scudnn_128x128_stridedB_splitK_medium_nn
+  0.93%  21.165ms        26  814.04us  23.009us  2.2684ms  void cudnn::detail::dgrad_engine<float, int=128, int=6, int=8, int=3, int=3, int=5, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::dgrad_engine<float, int=128, int=6, int=8, int=3, int=3, int=5, bool=1>*, kernel_grad_params, int, int, float, int, int, int)
+  0.79%  17.944ms        16  1.1215ms  580.96us  1.9276ms  void cudnn::detail::wgrad_alg0_engine<float, int=128, int=6, int=8, int=3, int=3, int=5, bool=1, int=512>(int, int, int, float const *, int, cudnn::detail::wgrad_alg0_engine<float, int=128, int=6, int=8, int=3, int=3, int=5, bool=1, int=512>*, float const , kernel_grad_params, int, float, int, int, int, int)
+  0.77%  17.488ms        32  546.51us  452.15us  758.02us  maxwell_scudnn_128x32_relu_medium_nn
+  0.67%  15.281ms         6  2.5469ms  1.8867ms  3.8618ms  void fft2d_r2c_32x32<float, unsigned int=1, bool=1>(float2*, float const *, int, int, int, int, int, int, int, int, int, cudnn::reduced_divisor, bool)
+  0.66%  14.893ms        10  1.4893ms  575.87us  2.3792ms  void cudnn::detail::implicit_convolve_sgemm<float, int=512, int=6, int=8, int=3, int=3, int=5, int=1, bool=1, bool=0, bool=1>(int, int, int, float const *, int, cudnn::detail::implicit_convolve_sgemm<float, int=512, int=6, int=8, int=3, int=3, int=5, int=1, bool=1, bool=0, bool=1>*, float const *, kernel_conv_params, int, float, float, int, float const *, float const *, int, int)
+  0.63%  14.187ms         6  2.3645ms  1.7424ms  3.5921ms  void fft2d_r2c_32x32<float, unsigned int=1, bool=0>(float2*, float const *, int, int, int, int, int, int, int, int, int, cudnn::reduced_divisor, bool)
+  0.58%  13.079ms         4  3.2698ms  1.8123ms  4.9535ms  maxwell_sgemmBatched_128x64_raggedMn_nn
+  0.54%  12.267ms         4  3.0666ms  1.7013ms  4.8269ms  maxwell_sgemmBatched_128x64_raggedMn_nt
+  0.54%  12.259ms       240  51.081us  2.4000us  316.85us  void cudnn::detail::activation_fw_4d_kernel<float, float, int=128, int=1, int=4, cudnn::detail::relu_func<float, cudnnNanPropagation_t=0, bool=0>>(cudnnTensorStruct, float const *, cudnn::detail::activation_fw_4d_kernel<float, float, int=128, int=1, int=4, cudnn::detail::relu_func<float, cudnnNanPropagation_t=0, bool=0>>, cudnnTensorStruct*, float, cudnnTensorStruct*, int, cudnnTensorStruct*)
+  0.48%  10.834ms       240  45.143us  2.1760us  252.62us  void add_tensor_kernel_v3<int=2, float, float, int=128, int=1, int=1, int=4, int=2>(cudnnTensorStruct, float*, cudnnTensorStruct, float const *, float, float)
+  0.47%  10.734ms        60  178.90us  86.180us  272.94us  void cudnn::detail::lrnForward_evenC<int=5, float, float>(cudnn::detail::LrnForwardParams<float, float>)
+  0.43%  9.8396ms        10  983.96us  685.15us  1.4426ms  void cudnn::detail::implicit_convolve_sgemm<float, int=128, int=6, int=7, int=3, int=3, int=5, int=1, bool=1, bool=0, bool=1>(int, int, int, float const *, int, cudnn::detail::implicit_convolve_sgemm<float, int=128, int=6, int=7, int=3, int=3, int=5, int=1, bool=1, bool=0, bool=1>*, float const *, kernel_conv_params, int, float, float, int, float const *, float const *, int, int)
+  0.35%  8.0215ms       132  60.768us  36.322us  83.236us  void cudnn::winograd::generateWinogradTilesKernel<int=0, float, float>(cudnn::winograd::GenerateWinogradTilesParams<float, float>)
+  0.33%  7.5824ms         4  1.8956ms  1.2244ms  2.7673ms  maxwell_scudnn_128x128_stridedB_splitK_large_nn
+  0.33%  7.4464ms        60  124.11us  35.617us  215.15us  void cudnn::detail::pooling_fw_4d_kernel<float, float, cudnn::detail::maxpooling_func<float, cudnnNanPropagation_t=0>, int=0>(cudnnTensorStruct, float const *, cudnn::detail::pooling_fw_4d_kernel<float, float, cudnn::detail::maxpooling_func<float, cudnnNanPropagation_t=0>, int=0>, cudnnTensorStruct*, cudnnPoolingStruct, float, cudnnPoolingStruct, int, cudnn::reduced_divisor, float)
+  0.27%  6.2079ms        30  206.93us  3.8720us  848.55us  void transpose_readWrite_alignment_kernel<float2, float2, int=1, bool=0, int=6, int=4, int=4>(cublasTransposeParams<float2>, float2 const *, float2*, float2 const *)
+  0.25%  5.6207ms         8  702.58us  148.33us  2.5278ms  maxwell_sgemmBatched_64x64_raggedMn_nt
+  0.25%  5.5643ms         5  1.1129ms  684.29us  1.8139ms  void cudnn::detail::explicit_convolve_sgemm<float, int, int=128, int=6, int=7, int=3, int=3, int=5, int=0, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::explicit_convolve_sgemm<float, int, int=128, int=6, int=7, int=3, int=3, int=5, int=0, bool=1>*, kernel_conv_params, int, int, float, float, int, float const *, float const *)
+  0.23%  5.2150ms        10  521.50us  378.67us  666.91us  void fermiPlusCgemmLDS128_batched<bool=1, bool=0, bool=0, bool=0, int=4, int=4, int=4, int=3, int=3, bool=1, bool=0>(float2**, float2**, float2**, float2*, float2 const *, float2 const *, int, int, int, int, int, int, __int64, __int64, __int64, float2 const *, float2 const *, float2, float2, int)
+  0.23%  5.1070ms         4  1.2768ms  893.10us  1.8185ms  maxwell_scudnn_128x32_stridedB_splitK_large_nn
+  0.22%  4.9231ms         5  984.63us  495.99us  1.8581ms  void cudnn::detail::explicit_convolve_sgemm<float, int, int=512, int=6, int=8, int=3, int=3, int=5, int=0, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::explicit_convolve_sgemm<float, int, int=512, int=6, int=8, int=3, int=3, int=5, int=0, bool=1>*, kernel_conv_params, int, int, float, float, int, float const *, float const *)
+  0.21%  4.8461ms         4  1.2115ms  944.11us  1.4794ms  void cudnn::detail::wgrad_alg0_engine<float, int=128, int=6, int=7, int=3, int=3, int=5, bool=1, int=512>(int, int, int, float const *, int, cudnn::detail::wgrad_alg0_engine<float, int=128, int=6, int=7, int=3, int=3, int=5, bool=1, int=512>*, float const , kernel_grad_params, int, float, int, int, int, int)
+  0.21%  4.7113ms        12  392.61us  204.65us  537.18us  void cudnn::winograd_nonfused::winogradForwardData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)
+  0.20%  4.5472ms         5  909.43us  905.80us  911.63us  void mshadow::cuda::MapPlanLargeKernel<mshadow::sv::saveto, int=8, int=1024, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=1, float>, float>, mshadow::expr::Plan<mshadow::expr::ScalarExp<float>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=1, int)
+  0.20%  4.5384ms        12  378.20us  196.17us  521.02us  void cudnn::winograd_nonfused::winogradForwardOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradOutputParams<float, float>)
+  0.19%  4.2353ms         6  705.88us  360.50us  1.2771ms  maxwell_scudnn_128x128_stridedB_small_nn
+  0.18%  4.1762ms         2  2.0881ms  1.7335ms  2.4427ms  maxwell_sgemmBatched_64x64_raggedMn_nn
+  0.18%  4.1649ms         1  4.1649ms  4.1649ms  4.1649ms  void cudnn::detail::dgrad2d_alg1_1<float, int=0, int=6, int=6, int=5, int=4, int=4, bool=1, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::dgrad2d_alg1_1<float, int=0, int=6, int=6, int=5, int=4, int=4, bool=1, bool=1>*, kernel_grad_params, int, int, float, int, int)
+  0.13%  2.9580ms         2  1.4790ms  1.4747ms  1.4833ms  void cudnn::detail::dgrad_engine<float, int=128, int=6, int=7, int=3, int=3, int=5, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::dgrad_engine<float, int=128, int=6, int=7, int=3, int=3, int=5, bool=1>*, kernel_grad_params, int, int, float, int, int, int)
+  0.13%  2.8475ms        24  118.65us  14.977us  411.86us  void fft2d_r2c_64x64<float>(float2*, float const *, int, int, int, int, int, int, int, int)
+  0.11%  2.5462ms       210  12.124us  7.1680us  15.297us  void thrust::system::cuda::detail::cub_::RadixSortScanBinsKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxScanPolicy, int>(float*, int)
+  0.11%  2.5248ms        14  180.34us  86.052us  402.00us  void im2col4d_kernel<float, int>(im2col4d_params, cudnnConvolutionStruct, cudnnTensor4dStruct, float const *, float*, int)
+  0.10%  2.2690ms        60  37.817us  31.745us  39.586us  void gemm_kernel1x1_core<float, bool=0, bool=0, bool=0, bool=1, bool=0>(float*, float const *, float const *, int, int, int, int, int, int, float*, float*, float, float, int)
+  0.07%  1.6499ms        60  27.497us  14.784us  50.818us  void fft2d_c2r_32x32<float, bool=0, unsigned int=0, bool=0, bool=0>(float*, float2 const *, int, int, int, int, int, int, int, int, int, float, float, cudnn::reduced_divisor, bool, float*, float*)
+  0.07%  1.5719ms        60  26.198us  15.457us  41.378us  void fft2d_r2c_32x32<float, unsigned int=0, bool=0>(float2*, float const *, int, int, int, int, int, int, int, int, int, cudnn::reduced_divisor, bool)
+  0.07%  1.5271ms        12  127.26us  19.585us  421.81us  void fft2d_c2r_64x64<float, bool=0>(float*, float2*, int, int, int, int, int, int, int, int, int, int, float, float, int, float*, float*)
+  0.06%  1.3414ms        34  39.453us  26.401us  42.690us  void cudnn::detail::implicit_convolve_sgemm<float, int=128, int=5, int=5, int=3, int=3, int=3, int=1, bool=1, bool=0, bool=1>(int, int, int, float const *, int, cudnn::detail::implicit_convolve_sgemm<float, int=128, int=5, int=5, int=3, int=3, int=3, int=1, bool=1, bool=0, bool=1>*, float const *, kernel_conv_params, int, float, float, int, float const *, float const *, int, int)
+  0.05%  1.1770ms       120  9.8080us  6.7210us  15.009us  void thrust::system::cuda::detail::cub_::DeviceRadixSortDownsweepKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxDownsweepPolicy, bool=1, float, int, int>(int*, int, int*, int, thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxDownsweepPolicy*, int*, int, int, bool, bool, thrust::system::cuda::detail::cub_::GridEvenShare<int*>)
+  0.05%  1.1120ms        32  34.750us  6.8490us  115.81us  void scaleTensor_kernel<float, float, int=16, int=16>(cudnnTensor4dStruct, float*, float)
+  0.05%  1.0931ms        12  91.095us  66.595us  139.30us  void cudnn::winograd_nonfused::winogradForwardFilter4x4<float, float>(cudnn::winograd_nonfused::WinogradFilterParams<float, float>)
+  0.05%  1.0770ms       125  8.6150us     960ns  56.738us  void mshadow::cuda::MapPlanKernel<mshadow::sv::saveto, int=8, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=1, float>, float>, mshadow::expr::Plan<mshadow::expr::ScalarExp<float>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=1)
+  0.05%  1.0715ms         2  535.75us  532.57us  538.94us  void pointwise_mult_and_sum_complex<float2, int=8, int=4>(float2*, float2*, float2*, int, int, int, int, int, float2)
+  0.04%  1.0061ms        32  31.439us  24.097us  33.250us  maxwell_scudnn_128x32_relu_interior_nn
+  0.04%  906.48us        90  10.071us  6.5600us  14.817us  void thrust::system::cuda::detail::cub_::DeviceRadixSortDownsweepKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxAltDownsweepPolicy, bool=1, float, int, int>(int*, int, int*, int, thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxAltDownsweepPolicy*, int*, int, int, bool, bool, thrust::system::cuda::detail::cub_::GridEvenShare<int*>)
+  0.04%  897.42us        30  29.913us  24.226us  31.585us  mshadow::cuda::nms_kernel(int, float, float const *, unsigned long*)
+  0.04%  803.62us         6  133.94us  103.94us  191.21us  void cudnn::winograd_nonfused::winogradWgradOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradWgradOutputParams<float, float>)
+  0.02%  546.46us         8  68.307us  55.619us  80.996us  void cudnn::detail::wgrad_alg0_engine<float, int=512, int=6, int=5, int=3, int=3, int=3, bool=1, int=512>(int, int, int, float const *, int, cudnn::detail::wgrad_alg0_engine<float, int=512, int=6, int=5, int=3, int=3, int=3, bool=1, int=512>*, float const , kernel_grad_params, int, float, int, int, int, int)
+  0.02%  538.76us       120  4.4890us  3.2650us  6.0810us  void thrust::system::cuda::detail::cub_::DeviceRadixSortUpsweepKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxUpsweepPolicy, bool=1, float, int>(int*, int*, int*, int, int, bool, thrust::system::cuda::detail::cub_::GridEvenShare<int*>)
+  0.02%  504.22us        60  8.4030us  6.5920us  9.1210us  void mshadow::cuda::MapPlanKernel<mshadow::sv::saveto, int=8, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=4, float>, float>, mshadow::expr::Plan<mshadow::expr::ScalarExp<float>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=4)
+  0.02%  468.09us         4  117.02us  35.394us  236.97us  maxwell_scudnn_128x64_stridedB_splitK_interior_nn
+  0.02%  393.72us        90  4.3740us  3.1040us  5.8890us  void thrust::system::cuda::detail::cub_::DeviceRadixSortUpsweepKernel<thrust::system::cuda::detail::cub_::DeviceRadixSortDispatch<bool=1, float, int, int>::PtxAltUpsweepPolicy, bool=1, float, int>(int*, int*, int*, int, int, bool, thrust::system::cuda::detail::cub_::GridEvenShare<int*>)
+  0.02%  391.89us        20  19.594us  14.721us  24.577us  void fft1d_r2c_32<float, float, float2, bool=0, bool=0>(float2*, float const *, int, int3, int3, int2, int2)
+  0.02%  341.61us        30  11.387us  9.3440us  11.937us  void mshadow::cuda::ProposalGridKernel<float>(int, int, int, int, int, float const *, mshadow::cuda::ProposalGridKernel<float>*)
+  0.01%  294.48us       114  2.5830us  1.6000us  5.0880us  cudnn::maxwell::gemm::computeOffsetsKernel(cudnn::maxwell::gemm::ComputeOffsetsParams)
+  0.01%  293.42us         4  73.355us  24.641us  145.80us  maxwell_scudnn_128x32_stridedB_splitK_interior_nn
+  0.01%  268.43us        28  9.5860us  1.1200us  28.609us  void cudnn::maxwell::gemm::setOutputKernel<float>(int, float*, float)
+  0.01%  256.81us         6  42.802us  22.977us  58.467us  void cudnn::winograd_nonfused::winogradWgradData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)
+  0.01%  251.89us         6  41.980us  21.953us  60.611us  void cudnn::winograd_nonfused::winogradWgradDelta4x4<float, float>(cudnn::winograd_nonfused::WinogradDeltaParams<float, float>)
+  0.01%  248.24us       120  2.0680us  1.0240us  9.1840us  void mshadow::cuda::MapPlanKernel<mshadow::sv::plusto, int=8, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=2, float>, float>, mshadow::expr::Plan<mshadow::expr::Broadcast1DExp<mshadow::Tensor<mshadow::gpu, int=1, float>, float, int=2, int=1>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=2)
+  0.01%  222.54us        30  7.4170us  6.1440us  8.0320us  void mshadow::cuda::BBoxPredKernel<float>(int, int, int, int, int, int, float, float, float const *, float const , mshadow::cuda::BBoxPredKernel<float>*)
+  0.01%  178.86us        16  11.178us  9.2490us  15.009us  void fft1d_c2r_32<float2, float, float, bool=0, bool=1, bool=0, bool=0>(float*, float2 const *, int, int3, int3, int2, int, float, float, float*, float*)
+  0.01%  156.68us        30  5.2220us  4.2240us  5.7290us  void mshadow::cuda::ReorderProposalsKernel<float>(int, float const *, int const *, mshadow::cuda::ReorderProposalsKernel<float>*)
+  0.01%  153.57us        30  5.1190us  4.4160us  5.3760us  void mxnet::op::mxnet_op::softmax_compute_kernel<int=7, mxnet::op::mxnet_op::softmax_fwd, float, int=2>(float*, float, unsigned int, int, mshadow::Shape<int=2>, mshadow<int=2>)
+  0.01%  148.10us         4  37.025us  31.042us  40.194us  void cudnn::detail::implicit_convolve_sgemm<float, int=1024, int=5, int=5, int=3, int=3, int=3, int=1, bool=1, bool=0, bool=1>(int, int, int, float const *, int, cudnn::detail::implicit_convolve_sgemm<float, int=1024, int=5, int=5, int=3, int=3, int=3, int=1, bool=1, bool=0, bool=1>*, float const *, kernel_conv_params, int, float, float, int, float const *, float const *, int, int)
+  0.01%  133.39us        60  2.2230us  1.1520us  3.2320us  void mshadow::cuda::MapPlanKernel<mshadow::sv::saveto, int=8, mshadow::expr::Plan<mshadow::Tensor<mshadow::gpu, int=2, float>, float>, mshadow::expr::Plan<mshadow::expr::UnaryMapExp<mxnet::op::mshadow_op::identity, mshadow::Tensor<mshadow::gpu, int=2, float>, float, int=1>, float>>(mshadow::gpu, unsigned int, mshadow::Shape<int=2>, int=2)
+  0.00%  113.10us        30  3.7690us  3.1360us  3.9690us  void cudnn::detail::softmax_fw_channel_4d_kernel<float, float, int=256, int=1>(cudnnTensorStruct, float const *, cudnn::detail::softmax_fw_channel_4d_kernel<float, float, int=256, int=1>, cudnnTensorStruct*, int, float, cudnnTensorStruct*, int, int)
+  0.00%  97.029us         4  24.257us  21.921us  26.785us  void cudnn::detail::explicit_convolve_sgemm<float, int, int=128, int=5, int=5, int=3, int=3, int=3, int=0, bool=1>(int, int, int, float const *, int, float const , int, cudnn::detail::explicit_convolve_sgemm<float, int, int=128, int=5, int=5, int=3, int=3, int=3, int=0, bool=1>*, kernel_conv_params, int, int, float, float, int, float const *, float const *)
+  0.00%  83.201us        30  2.7730us  2.2720us  2.9760us  void mshadow::cuda::FilterBoxKernel<float>(int, float, float*)
+  0.00%  79.143us        30  2.6380us  2.1760us  2.9450us  void mshadow::cuda::PrepareOutput<float>(int, float const *, int const *, int, mshadow::cuda::PrepareOutput<float>*, int const *)
+  0.00%  75.971us         4  18.992us  18.401us  19.648us  void fft1d_r2c_32<float, float, float2, bool=1, bool=0>(float2*, float const *, int, int3, int3, int2, int2)
+  0.00%  73.824us        60  1.2300us     896ns  1.4400us  [CUDA memcpy DtoD]
+  0.00%  70.370us         8  8.7960us  4.4480us  13.568us  void flip_filter<float, float>(float*, float const *, int, int, int, int)
+  0.00%  69.987us         4  17.496us  15.457us  19.841us  maxwell_scudnn_128x128_stridedB_interior_nn
+  0.00%  68.130us        38  1.7920us  1.1840us  2.1760us  cudnn::maxwell::gemm::computeBOffsetsKernel(cudnn::maxwell::gemm::ComputeBOffsetsParams)
+  0.00%  64.354us         2  32.177us  30.497us  33.857us  maxwell_scudnn_128x64_relu_interior_nn
+  0.00%  59.042us        28  2.1080us  1.7920us  2.8800us  cudnn::maxwell::gemm::computeWgradOffsetsKernel(cudnn::maxwell::gemm::ComputeOffsetsParams)
+  0.00%  57.488us        42  1.3680us     576ns  3.9480us  [CUDA memset]
+  0.00%  53.792us        30  1.7930us  1.4720us  1.9840us  void mshadow::cuda::CopyScoreKernel<float>(int, float const *, mshadow::cuda::CopyScoreKernel<float>*, int*)
+  0.00%  37.859us        10  3.7850us  3.6170us  3.9050us  compute_gemm_pointers(float2**, float2 const *, int, float2 const *, int, float2 const *, int, int)
+
+==7717== API calls:
+Time(%)      Time     Calls       Avg       Min       Max  Name
+ 30.15%  3.77820s         4  944.55ms  944.48ms  944.65ms  cudaStreamCreate
+ 24.59%  3.08168s       520  5.9263ms  6.7550us  138.03ms  cudaMemcpy2DAsync
+ 13.94%  1.74673s      3228  541.12us  8.1430us  138.08ms  cudaLaunch
+ 13.46%  1.68709s        16  105.44ms  16.306us  843.21ms  cudaStreamCreateWithFlags
+  7.95%  995.77ms       389  2.5598ms     761ns  465.20ms  cudaFree
+  3.83%  479.74ms       216  2.2210ms  5.6880us  53.682ms  cudaEventSynchronize
+  3.50%  438.13ms       473  926.27us  12.542us  82.764ms  cudaMalloc
+  1.03%  129.62ms       680  190.62us  1.9300us  3.9026ms  cudaStreamSynchronize
+  0.91%  114.60ms       124  924.23us  12.347us  4.1090ms  cudaMemcpy
+  0.13%  16.903ms        63  268.30us  138.81us  873.45us  cudaMemGetInfo
+  0.12%  15.083ms       676  22.311us     950ns  5.6634ms  cudaEventRecord
+  0.08%  10.449ms     21845     478ns     170ns  691.74us  cudaSetupArgument
+  0.07%  9.3578ms       298  31.402us  2.6480us  4.5870ms  cudaBindTexture
+  0.04%  4.7911ms       164  29.214us     565ns  3.9338ms  cudaEventCreateWithFlags
+  0.03%  3.1824ms       298  10.679us     735ns  2.4842ms  cudaUnbindTexture
+  0.02%  2.4275ms       351  6.9150us     180ns  596.82us  cuDeviceGetAttribute
+  0.02%  2.2506ms      3228     697ns     276ns  21.322us  cudaConfigureCall
+  0.02%  2.0823ms         1  2.0823ms  2.0823ms  2.0823ms  cudaMallocPitch
+  0.01%  1.7580ms       216  8.1380us  2.8890us  26.883us  cudaEventElapsedTime
+  0.01%  1.6382ms       300  5.4600us  3.0170us  18.454us  cudaFuncGetAttributes
+  0.01%  1.5645ms       956  1.6360us     377ns  35.652us  cudaSetDevice
+  0.01%  1.4316ms        60  23.860us  12.010us  38.361us  cudaMemcpyAsync
+  0.01%  1.1721ms      2204     531ns     275ns  7.5740us  cudaGetLastError
+  0.01%  1.1519ms         4  287.97us  164.00us  342.98us  cuDeviceTotalMem
+  0.01%  1.0767ms        42  25.634us  7.8430us  64.589us  cudaMemsetAsync
+  0.01%  741.95us       440  1.6860us     972ns  3.9890us  cudaStreamWaitEvent
+  0.01%  661.95us      1240     533ns     234ns  10.136us  cudaPeekAtLastError
+  0.00%  625.16us         4  156.29us  47.654us  451.97us  cuDeviceGetName
+  0.00%  563.43us       420  1.3410us     798ns  3.8390us  cudaDeviceSetSharedMemConfig
+  0.00%  440.00us         1  440.00us  440.00us  440.00us  cudaGetDeviceProperties
+  0.00%  283.43us       104  2.7250us  1.0470us  6.4840us  cudaEventDestroy
+  0.00%  218.15us       244     894ns     317ns  2.3420us  cudaDeviceGetAttribute
+  0.00%  126.48us         2  63.239us  38.786us  87.692us  cudaStreamCreateWithPriority
+  0.00%  114.24us        20  5.7120us  2.9710us  20.743us  cudaEventCreate
+  0.00%  112.64us        67  1.6810us     494ns  5.8830us  cudaGetDevice
+  0.00%  93.531us        60  1.5580us     743ns  2.4080us  cudaDeviceGetSharedMemConfig
+  0.00%  4.7900us         5     958ns     406ns  2.2930us  cuDeviceGetCount
+  0.00%  4.1870us         3  1.3950us  1.1440us  1.6670us  cuInit
+  0.00%  3.2960us         2  1.6480us  1.2550us  2.0410us  cudaDeviceGetStreamPriorityRange
+  0.00%  3.0400us         3  1.0130us     562ns  1.4730us  cuDriverGetVersion
+  0.00%  2.6260us         5     525ns     346ns     635ns  cuDeviceGet
